@@ -2,7 +2,7 @@
 
 // Example: php doc-parser.php <config-path>
 if ($argc !== 2) {
-    echo "Example usage: php doc-parser.php <config-path>";
+    echo 'Example usage: php doc-parser.php <config-path>';
     die(1);
 }
 

@@ -1,0 +1,23 @@
+language: php
+
+dist: trusty
+
+jobs:
+  include:
+    -   php: '7.0'
+    -   php: '7.1'
+    -   php: '7.2'
+    -   php: '7.3'
+
+cache:
+  directories:
+    - ~/.composer/cache/files
+
+install: composer update --no-interaction
+
+script:
+  - composer validate --strict
+
+  - vendor/bin/phpstan analyse
+  - vendor/bin/phpspec run --format dot -vvv --no-interaction
+  - vendor/bin/phpunit
