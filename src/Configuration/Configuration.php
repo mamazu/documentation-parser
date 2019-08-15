@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mamazu\DocumentationParser\Configuration;
 
+use Mamazu\DocumentationParser\Parser\ParserInterface;
 use Mamazu\DocumentationParser\Validator\ValidatorInterface;
 
 class Configuration
@@ -12,18 +13,18 @@ class Configuration
     private $paths;
 
     /** @var array<string, string> */
-    private $handler;
+    private $validators;
 
     /** @var array<string, string> */
     private $parsers;
 
     public function __construct(array $paths, array $handler, array $parser)
     {
-        $this->paths = $paths;
-        $this->handler = $handler;
-        $this->parsers = $parser;
+        $this->paths      = $paths;
+        $this->validators = $handler;
+        $this->parsers    = $parser;
 
-        $this->instanicateParsers();
+        $this->instanciateObjects();
     }
 
     public static function fromFile(string $fileName): self
@@ -31,14 +32,26 @@ class Configuration
         $content = \Safe\file_get_contents($fileName);
         $json = \Safe\json_decode($content, true);
 
-        return new self($json['paths'], $json['handler'], $json['parser']);
+        return new self($json['paths'], $json['validators'], $json['parser']);
     }
 
-    private function instanicateParsers(): void
+    private function instanciateObjects()
     {
         foreach ($this->parsers as $type => &$parser) {
-            $parser = new $parser();
+            $this->addParser($type, $parser);
         }
+        unset($parser);
+
+        foreach ($this->validators as $type => &$validator) {
+            $this->addValidator($type, new $validator());
+        }
+        unset($validator);
+
+    }
+
+    public function addParser(string $type, ParserInterface $parser)
+    {
+        $this->parsers[$type] = $parser;
     }
 
     public function getParsers(): array
@@ -46,9 +59,13 @@ class Configuration
         return $this->parsers;
     }
 
-    public function getHandler(string $type): ValidatorInterface
+    public function addValidator(string $type, ValidatorInterface $validator) {
+        $this->validators[$type] = $validator;
+    }
+
+    public function getValidator(string $type): ValidatorInterface
     {
-        return new $this->handler[$type]();
+        return new $this->validators[$type];
     }
 
     /**
@@ -57,7 +74,7 @@ class Configuration
     public function getFiles(): array
     {
         return array_map(
-            function (string $fileName): string {
+            static function (string $fileName): string {
                 return __DIR__ . '/../../bin/' . $fileName;
             },
             $this->paths

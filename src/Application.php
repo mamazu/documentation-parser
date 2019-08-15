@@ -42,7 +42,7 @@ class Application
     private function validateBlock(Block $block): array
     {
         $type = $block->getType();
-        $handler = $this->configuration->getHandler($type);
+        $handler = $this->configuration->getValidator($type);
         $result = $handler->validate($block);
 
         return $result;

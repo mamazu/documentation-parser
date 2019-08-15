@@ -1,5 +1,5 @@
 {
-    "handler": {
+    "validators": {
         "php": "Mamazu\\DocumentationParser\\Validator\\PHPValidator"
     },
     "parser": {
