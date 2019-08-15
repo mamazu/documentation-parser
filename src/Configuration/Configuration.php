@@ -12,44 +12,37 @@ class Configuration
     /** @var array<string> */
     private $paths;
 
-    /** @var array<string, string> */
-    private $validators;
+    /** @var array<ValidatorInterface> */
+    private $validators = [];
 
-    /** @var array<string, string> */
-    private $parsers;
+    /** @var array<ParserInterface> */
+    private $parsers = [];
 
-    public function __construct(array $paths, array $handler, array $parser)
+    protected function __construct(array $paths)
     {
-        $this->paths      = $paths;
-        $this->validators = $handler;
-        $this->parsers    = $parser;
-
-        $this->instanciateObjects();
+        $this->paths = $paths;
     }
 
     public static function fromFile(string $fileName): self
     {
         $content = \Safe\file_get_contents($fileName);
-        $json = \Safe\json_decode($content, true);
+        $json    = \Safe\json_decode($content, true);
 
-        return new self($json['paths'], $json['validators'], $json['parser']);
-    }
-
-    private function instanciateObjects()
-    {
-        foreach ($this->parsers as $type => &$parser) {
-            $this->addParser($type, $parser);
+        $object = new self($json['paths']);
+        foreach ($json['parser'] as $type => &$parser) {
+            $object->addParser($type, new $parser());
         }
         unset($parser);
 
-        foreach ($this->validators as $type => &$validator) {
-            $this->addValidator($type, new $validator());
+        foreach ($json['validators'] as $type => &$validator) {
+            $object->addValidator($type, new $validator());
         }
         unset($validator);
 
+        return $object;
     }
 
-    public function addParser(string $type, ParserInterface $parser)
+    public function addParser(string $type, ParserInterface $parser): void
     {
         $this->parsers[$type] = $parser;
     }
@@ -59,7 +52,8 @@ class Configuration
         return $this->parsers;
     }
 
-    public function addValidator(string $type, ValidatorInterface $validator) {
+    public function addValidator(string $type, ValidatorInterface $validator): void
+    {
         $this->validators[$type] = $validator;
     }
 
@@ -75,7 +69,7 @@ class Configuration
     {
         return array_map(
             static function (string $fileName): string {
-                return __DIR__ . '/../../bin/' . $fileName;
+                return __DIR__.'/../../bin/'.$fileName;
             },
             $this->paths
         );
