@@ -1,0 +1,20 @@
+{
+    "name": "mamazu/documentation-validator",
+    "description": "A validator tool that can validate markdown documentation",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "mamazu",
+            "email": "14860264+mamazu@users.noreply.github.com"
+        }
+    ],
+    "require": {
+        "php": "^7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Mamazu\\DocumentationParser\\": "src/"
+        }
+    }
+}

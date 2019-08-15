@@ -1,0 +1,11 @@
+{
+    "handler": {
+        "php": "Mamazu\\DocumentationParser\\Validator\\PHPValidator"
+    },
+    "parser": {
+        "*.md": "Mamazu\\DocumentationParser\\Parser\\MarkdownParser"
+    },
+    "paths": [
+        "example.md"
+    ]
+}
