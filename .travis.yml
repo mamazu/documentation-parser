@@ -19,4 +19,3 @@ script:
 
   - vendor/bin/phpstan analyse
   - vendor/bin/phpspec run --format dot -vvv --no-interaction
-  - vendor/bin/phpunit
