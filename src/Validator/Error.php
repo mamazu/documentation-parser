@@ -1,13 +1,25 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Mamazu\DocumentationParser\Validator;
 
-class Error {
-    public function __construct(string $fileName, int $lineNumber, string $message) {
+class Error
+{
+    /** @var string */
+    private $fileName;
+
+    /** @var int */
+    private $lineNumber;
+
+    /** @var string */
+    private $message;
+
+    public function __construct(string $fileName, int $lineNumber, string $message)
+    {
         $this->fileName = $fileName;
         $this->lineNumber = $lineNumber;
-        $this->message =$message;
+        $this->message = $message;
     }
 
     public function getMessage(): string
@@ -19,7 +31,7 @@ class Error {
     {
         return $this->fileName;
     }
-    
+
     public function getLineNumber(): int
     {
         return $this->lineNumber;

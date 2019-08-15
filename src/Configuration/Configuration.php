@@ -1,11 +1,13 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Mamazu\DocumentationParser\Configuration;
 
 use Mamazu\DocumentationParser\Validator\ValidatorInterface;
 
-class Configuration{
+class Configuration
+{
     /** @var array<string> */
     private $paths;
 
@@ -26,16 +28,15 @@ class Configuration{
 
     public static function fromFile(string $fileName): self
     {
-        $content = file_get_contents($fileName);
-        $json = json_decode($content, true);
+        $content = \Safe\file_get_contents($fileName);
+        $json = \Safe\json_decode($content, true);
 
         return new self($json['paths'], $json['handler'], $json['parser']);
     }
 
     private function instanicateParsers(): void
     {
-        foreach($this->parsers as $type => &$parser) 
-        {
+        foreach ($this->parsers as $type => &$parser) {
             $parser = new $parser();
         }
     }
@@ -57,7 +58,7 @@ class Configuration{
     {
         return array_map(
             function (string $fileName): string {
-                return __DIR__.'/../../bin/'.$fileName;
+                return __DIR__ . '/../../bin/' . $fileName;
             },
             $this->paths
         );

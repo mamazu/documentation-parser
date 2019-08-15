@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Mamazu\DocumentationParser\Parser;
 
 class MarkdownParser implements ParserInterface
@@ -8,16 +11,18 @@ class MarkdownParser implements ParserInterface
         return strtolower(substr($fileName, -2)) === 'md';
     }
 
-    public function parse(string $fileName): array {
+    public function parse(string $fileName): array
+    {
         $lines = file($fileName, FILE_IGNORE_NEW_LINES);
+        assert(is_array($lines));
         $blocks = [];
 
         $beginLine = null;
-        $type= null;
+        $type = '';
         $content = '';
-        foreach($lines as $lineNumber => $lineContent) {
-            if(strpos($lineContent, '```') === 0) {
-                if($beginLine === null) {
+        foreach ($lines as $lineNumber => $lineContent) {
+            if (strpos($lineContent, '```') === 0) {
+                if ($beginLine === null) {
                     $content = '';
                     $type = substr($lineContent, 3);
                     $beginLine = $lineNumber;
@@ -26,7 +31,7 @@ class MarkdownParser implements ParserInterface
                     $blocks[] = new Block($fileName, $content, $beginLine, $type);
                 }
             }
-            $content .= $lineContent."\n";
+            $content .= $lineContent . "\n";
         }
         return $blocks;
     }
