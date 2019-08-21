@@ -30,12 +30,12 @@ class Configuration
 
         $object = new self($json['paths']);
         foreach ($json['parser'] as $type => &$parser) {
-            $object->addParser($type, new $parser());
+            $object->addParser($type, Instanciator::createFromArray($parser));
         }
         unset($parser);
 
         foreach ($json['validators'] as $type => &$validator) {
-            $object->addValidator($type, new $validator());
+            $object->addValidator($type, Instanciator::createFromArray($validator));
         }
         unset($validator);
 
@@ -59,7 +59,7 @@ class Configuration
 
     public function getValidator(string $type): ValidatorInterface
     {
-        return new $this->validators[$type];
+        return $this->validators[$type];
     }
 
     /**
