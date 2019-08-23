@@ -6,6 +6,7 @@ namespace Mamazu\DocumentationParser\Configuration;
 
 use Mamazu\DocumentationParser\Parser\ParserInterface;
 use Mamazu\DocumentationParser\Validator\ValidatorInterface;
+use Webmozart\Assert\Assert;
 
 class Configuration
 {
@@ -30,12 +31,18 @@ class Configuration
 
         $object = new self($json['paths']);
         foreach ($json['parser'] as $type => &$parser) {
-            $object->addParser($type, Instanciator::createFromArray($parser));
+            $parser = Instanciator::createFromArray($parser);
+            Assert::isInstanceOf($parser, ParserInterface::class);
+
+            $object->addParser($type, $parser);
         }
         unset($parser);
 
         foreach ($json['validators'] as $type => &$validator) {
-            $object->addValidator($type, Instanciator::createFromArray($validator));
+            $validator = Instanciator::createFromArray($validator);
+            Assert::isInstanceOf($validator, ValidatorInterface::class);
+
+            $object->addValidator($type, $validator);
         }
         unset($validator);
 

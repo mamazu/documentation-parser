@@ -1,4 +1,6 @@
 # Doc Parser (WIP)
+[![Build Status](https://travis-ci.org/mamazu/documentation-parser.svg?branch=master)](https://travis-ci.org/mamazu/documentation-parser)
+
 Every project needs documentation which is usually accompanied by code snippets that show how a component is integrated. The problem is how does the project ensure that this code runs and that the code is up to date? Then this is your tool.
 
 ## Installation
@@ -13,4 +15,5 @@ Download the most recent release and run `php doc-parser.php <arguments>`
 This plugin will have a Symfony integration.
 
 Adding parsers to it: Create a class that implements the `ParserInterface` and add it to the application
+
 Adding validators to it: Create a class that implements the `ValidatorInterface` and add it to the application

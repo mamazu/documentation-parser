@@ -4,7 +4,10 @@ declare(strict_types=1);
 namespace Mamazu\DocumentationParser\Configuration;
 
 class Instanciator {
-    public static function createFromArray(array $array): object
+    /**
+     * @return object
+     */
+    public static function createFromArray(array $array)
     {
         $className = array_shift($array);
 
