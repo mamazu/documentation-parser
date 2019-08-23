@@ -59,6 +59,9 @@ class Configuration
 
     public function getValidator(string $type): ValidatorInterface
     {
+        if(!array_key_exists($type, $this->validators)) {
+            throw new \InvalidArgumentException('No validator found for "'.$type.'"');
+        }
         return $this->validators[$type];
     }
 

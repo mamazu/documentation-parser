@@ -10,12 +10,15 @@ class Formatter
 {
     public function format(array $output): string
     {
-        $string = '';
-        foreach ($output as $error) {
-            /** @var Error $error */
-            $string .= $error->getFileName() . ':' . $error->getLineNumber() . ' ---- ' . $error->getMessage() . "\n";
-        }
 
-        return $string;
+        return implode(
+            "\n",
+            array_map(
+                function (Error $error) {
+                    return $error->getFileName() . ':' . $error->getLineNumber() . ' ---- ' . $error->getMessage();
+                },
+                $output
+            )
+        );
     }
 }

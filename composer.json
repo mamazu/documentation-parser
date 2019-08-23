@@ -18,6 +18,11 @@
             "Mamazu\\DocumentationParser\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "spec\\": "spec/"
+        }
+    },
     "require-dev": {
         "phpspec/phpspec": "^5.1",
         "phpstan/phpstan": "^0.11.13",

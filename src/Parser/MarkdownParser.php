@@ -17,6 +17,7 @@ class MarkdownParser implements ParserInterface
         assert(is_array($lines));
         $blocks = [];
 
+        /** @var null|int $beginLine */
         $beginLine = null;
         $type = '';
         $content = '';
@@ -26,13 +27,15 @@ class MarkdownParser implements ParserInterface
                     $content = '';
                     $type = substr($lineContent, 3);
                     $beginLine = $lineNumber;
-                    continue;
+                } else {
+                    $blocks[] = new Block($fileName, trim($content), $beginLine + 1, $type);
+                    $beginLine = null;
                 }
-
-                $blocks[] = new Block($fileName, $content, $beginLine, $type);
-            }
+            } else {
             $content .= $lineContent . "\n";
+            }
         }
+
         return $blocks;
     }
 }
