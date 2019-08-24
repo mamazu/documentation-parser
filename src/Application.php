@@ -21,6 +21,11 @@ class Application
     {
         $validationErrors = [];
         foreach ($this->configuration->getFiles() as $fileName) {
+            if(!\file_exists($fileName)) {
+                echo 'Could not find file: '. $fileName.PHP_EOL;
+                continue;
+            }
+
             $blocks = $this->getDocumentationBlocks($fileName);
             foreach ($blocks as $block) {
                 $validationErrors = array_merge($validationErrors, $this->validateBlock($block));

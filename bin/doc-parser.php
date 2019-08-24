@@ -12,6 +12,10 @@ use Mamazu\DocumentationParser\Configuration\Configuration;
 use Mamazu\DocumentationParser\Application;
 use Mamazu\DocumentationParser\Output\Formatter;
 
+try {
 $configuration = Configuration::fromFile($argv[1]);
 $application = new Application($configuration);
 echo (new Formatter())->format($application->parse());
+} catch (Throwable $throwable) {
+    die($throwable->getCode());
+}
