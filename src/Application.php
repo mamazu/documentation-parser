@@ -21,8 +21,8 @@ class Application
     {
         $validationErrors = [];
         foreach ($this->configuration->getFiles() as $fileName) {
-            if(!\file_exists($fileName)) {
-                echo 'Could not find file: '. $fileName.PHP_EOL;
+            if (!\file_exists($fileName)) {
+                echo 'Could not find file: ' . $fileName . PHP_EOL;
                 continue;
             }
 

@@ -6,16 +6,16 @@ if ($argc !== 2) {
     die(1);
 }
 
-include __DIR__.'/../vendor/autoload.php';
+include __DIR__ . '/../vendor/autoload.php';
 
 use Mamazu\DocumentationParser\Configuration\Configuration;
 use Mamazu\DocumentationParser\Application;
 use Mamazu\DocumentationParser\Output\Formatter;
 
 try {
-$configuration = Configuration::fromFile($argv[1]);
-$application = new Application($configuration);
-echo (new Formatter())->format($application->parse());
+    $configuration = Configuration::fromFile($argv[1]);
+    $application = new Application($configuration);
+    echo (new Formatter())->format($application->parse());
 } catch (Throwable $throwable) {
     die($throwable->getCode());
 }
