@@ -1,6 +1,9 @@
 {
     "validators": {
-        "php": ["Mamazu\\DocumentationParser\\Validator\\PHPValidator"]
+        "php": [
+            "Mamazu\\DocumentationParser\\Validator\\PHPValidator",
+            ["Mamazu\\DocumentationParser\\SystemAbstraction\\CommandLineRunner"]
+        ]
     },
     "parser": {
         "*.md": ["Mamazu\\DocumentationParser\\Parser\\MarkdownParser"]

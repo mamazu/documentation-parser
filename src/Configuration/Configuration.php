@@ -77,11 +77,6 @@ class Configuration
      */
     public function getFiles(): array
     {
-        return array_map(
-            static function (string $fileName): string {
-                return __DIR__.'/../../bin/'.$fileName;
-            },
-            $this->paths
-        );
+        return $this->paths;
     }
 }
