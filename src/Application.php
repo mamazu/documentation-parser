@@ -33,9 +33,10 @@ class Application
                 continue;
             }
 
-            $blocks = $this->getDocumentationBlocks($fileName);
+            $blocks = $this->parser->parse($fileName);
             foreach ($blocks as $block) {
-                $validationErrors = array_merge($validationErrors, $this->validateBlock($block));
+                $errors = $this->validator->validate($block);
+                $validationErrors = array_merge($validationErrors, $errors);
             }
         }
 

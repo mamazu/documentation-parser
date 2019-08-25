@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mamazu\DocumentationParser\Parser;
+namespace Mamazu\DocumentationParser\Parser\Parser;
+
+use Mamazu\DocumentationParser\Parser\Block;
 
 interface ParserInterface
 {

@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mamazu\DocumentationParser\Validator;
+namespace Mamazu\DocumentationParser\Validator\Validator;
 
 use Mamazu\DocumentationParser\Parser\Block;
+use Mamazu\DocumentationParser\Validator\Error;
+use Mamazu\DocumentationParser\Validator\Validator\ValidatorInterface;
 
 final class CommandExecutor implements ValidatorInterface
 {
@@ -48,6 +50,7 @@ final class CommandExecutor implements ValidatorInterface
 
     private function parseMatch(array $match): ?Error
     {
+        // todo: implement error matching
         return null;
     }
 }
