@@ -32,6 +32,13 @@ The first list of objects are the parsers that extract the source code out of th
 * XMLValidator: Checks if the document contains valid XML
 
 ### Adding parsers and validator
-Adding parsers to it: Create a class that implements the `ParserInterface` and add it to the application
+Adding parsers to it: Create a class that implements the `ParserInterface` and add it to the application e.g.
+```php
+class Parser implements ParserInterface {
+
+}
+```
+
+Adding validators to it: Create a class that implements the `ValidatorInterface` and add it to the application
 
 Adding validators to it: Create a class that implements the `ValidatorInterface` and add it to the application
