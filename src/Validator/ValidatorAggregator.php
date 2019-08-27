@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Mamazu\DocumentationParser\Validator;
@@ -9,10 +10,11 @@ use Mamazu\DocumentationParser\Validator\Validator\ValidatorInterface;
 class ValidatorAggregator implements ValidatorInterface
 {
     /** @var array<ValidatorInterface> */
-    private $validators;
+    private $validators = [];
 
-    public function __construct(array $parsers = []) {
-        foreach($parsers as $parserName => $parser) {
+    public function __construct(array $parsers = [])
+    {
+        foreach ($parsers as $parserName => $parser) {
             $this->addValidator($parserName, $parser);
         }
     }
@@ -25,8 +27,12 @@ class ValidatorAggregator implements ValidatorInterface
     /** {@inheritDoc} */
     public function validate(Block $block): array
     {
+        $type = $block->getType();
+        if (!array_key_exists($type, $this->validators)) {
+            return [];
+        }
         /** @var ValidatorInterface $validator */
-        $validator = $this->validators[$block->getType()];
+        $validator = $this->validators[$type];
 
         return $validator->validate($block);
     }
