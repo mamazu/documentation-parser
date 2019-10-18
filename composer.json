@@ -14,7 +14,8 @@
         "ext-dom": "*",
         "ext-libxml": "*",
 
-        "thecodingmachine/safe": "^0.1.16"
+        "thecodingmachine/safe": "^0.1.16",
+        "nikic/php-parser": "^4.2"
     },
     "autoload": {
         "psr-4": {

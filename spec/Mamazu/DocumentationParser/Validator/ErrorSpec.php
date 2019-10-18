@@ -38,7 +38,7 @@ class ErrorSpec extends ObjectBehavior
 
         $this->getFileName()->shouldReturn('abc.de');
         $this->getMessage()->shouldReturn('[php] Some message');
-        $this->getLineNumber()->shouldReturn(19);
+        $this->getLineNumber()->shouldReturn(20);
     }
 
 }

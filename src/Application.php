@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Mamazu\DocumentationParser;
 
-use Mamazu\DocumentationParser\Configuration\Configuration;
 use Mamazu\DocumentationParser\Parser\Block;
 use Mamazu\DocumentationParser\Parser\ParserInterface;
 use Mamazu\DocumentationParser\Validator\Error;

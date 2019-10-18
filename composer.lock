@@ -1,11 +1,62 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "fe2c6605be974d0915b533e3b014a117",
+    "content-hash": "63d6e1343f7df126917a9399bf9b3479",
     "packages": [
+        {
+            "name": "nikic/php-parser",
+            "version": "v4.2.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nikic/PHP-Parser.git",
+                "reference": "97e59c7a16464196a8b9c77c47df68e4a39a45c4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/97e59c7a16464196a8b9c77c47df68e4a39a45c4",
+                "reference": "97e59c7a16464196a8b9c77c47df68e4a39a45c4",
+                "shasum": ""
+            },
+            "require": {
+                "ext-tokenizer": "*",
+                "php": ">=7.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^6.5 || ^7.0 || ^8.0"
+            },
+            "bin": [
+                "bin/php-parse"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.2-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "PhpParser\\": "lib/PhpParser"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Nikita Popov"
+                }
+            ],
+            "description": "A PHP parser written in PHP",
+            "keywords": [
+                "parser",
+                "php"
+            ],
+            "time": "2019-09-01T07:51:21+00:00"
+        },
         {
             "name": "thecodingmachine/safe",
             "version": "v0.1.16",
@@ -813,57 +864,6 @@
                 "validation"
             ],
             "time": "2019-03-22T01:00:30+00:00"
-        },
-        {
-            "name": "nikic/php-parser",
-            "version": "v4.2.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "e612609022e935f3d0337c1295176505b41188c8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/e612609022e935f3d0337c1295176505b41188c8",
-                "reference": "e612609022e935f3d0337c1295176505b41188c8",
-                "shasum": ""
-            },
-            "require": {
-                "ext-tokenizer": "*",
-                "php": ">=7.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^6.5 || ^7.0 || ^8.0"
-            },
-            "bin": [
-                "bin/php-parse"
-            ],
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "4.2-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "PhpParser\\": "lib/PhpParser"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Nikita Popov"
-                }
-            ],
-            "description": "A PHP parser written in PHP",
-            "keywords": [
-                "parser",
-                "php"
-            ],
-            "time": "2019-08-12T20:17:41+00:00"
         },
         {
             "name": "ocramius/package-versions",
@@ -2462,7 +2462,9 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.1"
+        "php": "^7.1",
+        "ext-dom": "*",
+        "ext-libxml": "*"
     },
     "platform-dev": []
 }

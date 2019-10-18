@@ -13,3 +13,15 @@ echo "Hallo"
 
 echo 2+2;
 ```
+
+```php
+<?php
+
+use Mamazu\DocumentationParser\Validator\XMLValidValidator;
+
+$validator = new XMLValidValidator();
+
+new Mamazu\DocumentationParser\Validator\Php\PHPValidator();
+
+(new Mamazu\DocumentationParser\Validator\Php\PHPValidator())->validate();
+```

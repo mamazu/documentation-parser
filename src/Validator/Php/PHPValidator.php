@@ -2,10 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mamazu\DocumentationParser\Validator;
+namespace Mamazu\DocumentationParser\Validator\Php;
 
 use Mamazu\DocumentationParser\Parser\Block;
 use Mamazu\DocumentationParser\SystemAbstraction\CommandLineRunnerInterface;
+use Mamazu\DocumentationParser\Validator\Error;
+use Mamazu\DocumentationParser\Validator\ValidatorInterface;
 
 class PHPValidator implements ValidatorInterface
 {
@@ -51,6 +53,6 @@ class PHPValidator implements ValidatorInterface
         $message = $matches[1];
         $lineNumber = (int) $matches[2];
 
-        return Error::errorFromBlock($block, $lineNumber + 1, $message);
+        return Error::errorFromBlock($block, $lineNumber, $message);
     }
 }

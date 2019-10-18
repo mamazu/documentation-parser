@@ -6,7 +6,7 @@ namespace Mamazu\DocumentationParser\Validator;
 
 use Mamazu\DocumentationParser\Parser\Block;
 
-class CommandExecutor implements ValidatorInterface
+final class CommandExecutor implements ValidatorInterface
 {
     /** @var string */
     private $command;

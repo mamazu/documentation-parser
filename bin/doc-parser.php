@@ -14,8 +14,10 @@ use Mamazu\DocumentationParser\Output\Formatter;
 use Mamazu\DocumentationParser\Parser\MarkdownParser;
 use Mamazu\DocumentationParser\SystemAbstraction\CommandLineRunner;
 use Mamazu\DocumentationParser\Validator\CompositeValidator;
-use Mamazu\DocumentationParser\Validator\PHPValidator;
+use Mamazu\DocumentationParser\Validator\Php\PhpClassExistsValidator;
+use Mamazu\DocumentationParser\Validator\Php\PHPValidator;
 use Mamazu\DocumentationParser\Validator\XMLValidValidator;
+use PhpParser\ParserFactory;
 
 $arguments = $argv;
 array_shift($arguments);
@@ -29,12 +31,18 @@ try {
                 new CompositeValidator(
                     [
                         new PHPValidator(new CommandLineRunner()),
+                        new PHPClassExistsValidator(
+                            (new ParserFactory)->create(ParserFactory::PREFER_PHP7),
+                            'class_exists'
+                        ),
                     ]
                 ),
             'xml' => new XMLValidValidator(),
         ]
     );
-    echo (new Formatter())->format($application->parse($arguments));
+    $output = $application->parse($arguments);
+//    echo (new Formatter())->format($output);
 } catch (Throwable $throwable) {
+    echo $throwable->getMessage();
     die($throwable->getCode());
 }

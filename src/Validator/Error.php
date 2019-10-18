@@ -42,6 +42,6 @@ class Error
     public static function errorFromBlock(Block $block, int $offset, string $message): self
     {
         $blockPrefix = '['.$block->getType().'] ';
-        return new self($block->getFileName(), $block->getRelativeLineNumber() + $offset - 1, $blockPrefix.$message);
+        return new self($block->getFileName(), $block->getRelativeLineNumber() + $offset, $blockPrefix.$message);
     }
 }
