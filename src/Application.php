@@ -6,21 +6,29 @@ namespace Mamazu\DocumentationParser;
 
 use Mamazu\DocumentationParser\Configuration\Configuration;
 use Mamazu\DocumentationParser\Parser\Block;
+use Mamazu\DocumentationParser\Parser\ParserInterface;
+use Mamazu\DocumentationParser\Validator\Error;
+use Mamazu\DocumentationParser\Validator\ValidatorInterface;
 
 class Application
 {
-    /** @var Configuration */
-    private $configuration;
+    /** @var array<ParserInterface> */
+    private $parser;
 
-    public function __construct(Configuration $configuration)
+    /** @var array<ValidatorInterface> */
+    private $validator;
+
+    public function __construct(array $parser, array $validator)
     {
-        $this->configuration = $configuration;
+        $this->parser = $parser;
+        $this->validator = $validator;
     }
 
-    public function parse(): array
+    /** @return array<Error> */
+    public function parse(array $files): array
     {
         $validationErrors = [];
-        foreach ($this->configuration->getFiles() as $fileName) {
+        foreach ($files as $fileName) {
             if (!\file_exists($fileName)) {
                 echo 'Could not find file: ' . $fileName . PHP_EOL;
                 continue;
@@ -37,19 +45,21 @@ class Application
 
     private function getDocumentationBlocks(string $fileName): array
     {
-        foreach ($this->configuration->getParsers() as $parser) {
+        foreach ($this->parser as $parser) {
             if ($parser->canParse($fileName)) {
                 return $parser->parse($fileName);
             }
         }
+
+        return [];
     }
 
+    /** @return array<Error> */
     private function validateBlock(Block $block): array
     {
         $type = $block->getType();
-        $handler = $this->configuration->getValidator($type);
-        $result = $handler->validate($block);
+        $handler = $this->validator[$type];
 
-        return $result;
+        return $handler->validate($block);
     }
 }

@@ -28,8 +28,6 @@ class CommandExecutor implements ValidatorInterface
     {
         file_put_contents('/tmp/code', $block->getContent());
 
-        \passthru('/tmp/code');
-
         $output = [];
         exec($this->prepareCommand('/tmp/code'), $output);
 
