@@ -1,3 +1,4 @@
+#!/usr/bin/php
 <?php
 
 // Example: php doc-parser.php <files to parse>
@@ -14,6 +15,7 @@ use Mamazu\DocumentationParser\Parser\MarkdownParser;
 use Mamazu\DocumentationParser\SystemAbstraction\CommandLineRunner;
 use Mamazu\DocumentationParser\Validator\CompositeValidator;
 use Mamazu\DocumentationParser\Validator\PHPValidator;
+use Mamazu\DocumentationParser\Validator\XMLValidValidator;
 
 $arguments = $argv;
 array_shift($arguments);
@@ -29,6 +31,7 @@ try {
                         new PHPValidator(new CommandLineRunner()),
                     ]
                 ),
+            'xml' => new XMLValidValidator(),
         ]
     );
     echo (new Formatter())->format($application->parse($arguments));

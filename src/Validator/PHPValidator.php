@@ -51,6 +51,6 @@ class PHPValidator implements ValidatorInterface
         $message = $matches[1];
         $lineNumber = (int) $matches[2];
 
-        return new Error($block->getFileName(), $block->getRelativeLineNumber() + $lineNumber, $message);
+        return Error::errorFromBlock($block, $lineNumber + 1, $message);
     }
 }

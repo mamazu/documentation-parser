@@ -11,6 +11,9 @@
     ],
     "require": {
         "php": "^7.1",
+        "ext-dom": "*",
+        "ext-libxml": "*",
+
         "thecodingmachine/safe": "^0.1.16"
     },
     "autoload": {
