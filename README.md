@@ -4,34 +4,32 @@
 Every project needs documentation which is usually accompanied by code snippets that show how a component is integrated. The problem is how does the project ensure that this code runs and that the code is up to date? Then this is your tool.
 
 ## Installation
-For a php application:
-1. `composer require --dev mamazu/documentation-validator`
-2. `php vendor/bin/doc-parser.php <arguments>`
+`composer require --dev mamazu/documentation-validator`
 
-For any other application:
-Download the most recent release and run `php doc-parser.php <arguments>`
+`php vendor/bin/doc-parser.php <files to check>`
 
 ## Extending it
 This plugin will have a Symfony integration.
 
-### Configuration
-The configuration contains three keys: `validators`, `parsers` and `paths`. 
+## How to configure it
+Configuration of the software is done in code. If you want to add a new parser or validator you need to change the instantiation code of the application in the `bin/doc-parser.php` file.
 
-* In the **paths** key, you specify the paths that should be checked.
-* In the **parser** key, you define a list of parsers. The key of the parser is currently unused.
-* In the **validator** key you can define the validators that should be used for a given type. The key corresponds to language that is being checked.
+The first list of objects are the parsers that extract the source code out of the documentation. The second list of objects are the validators where the key of the array is the type of source code they validate.
 
-With parser and validators you need to define how to instantiate it with an array. In the array the first item is the class name of the class you want to instanciate. After that follows the list of arguments. If the class has a dependency on another class then the argument is an array as well. For example:
-```json
-{
-    "validators": {
-        "php": [
-            "Mamazu\\DocumentationParser\\Validator\\PHPValidator",
-            ["Mamazu\\DocumentationParser\\SystemAbstraction\\CommandLineRunner"]
-        ]
-    }
-}
-```
+### Parsers
+* Markdown parser: Parses markdown and **only** extracts the block comments like this:
+> \```php
+>
+>echo "ABC";
+>
+>\```
+
+### Validators
+* CompositeValidator: Validates all of it's children passed into the constructor
+* PHP:
+    * PhpValidator: Validates if a piece of php code contains valid php (only syntax checking with `php -l`)
+    * ClassExistenceValidator: Validates if the classes referenced in the use statement exist
+* XMLValidator: Checks if the document contains valid XML
 
 ### Adding parsers and validator
 Adding parsers to it: Create a class that implements the `ParserInterface` and add it to the application
