@@ -2,8 +2,8 @@
 <?php
 
 // Example: php doc-parser.php <files to parse>
-if ($argc !== 2) {
-    echo 'Example usage: php doc-parser.php <config-path>';
+if ($argc < 2) {
+    echo 'Example usage: php doc-parser.php <files to parse>';
     die(1);
 }
 

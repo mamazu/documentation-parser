@@ -5,14 +5,19 @@ namespace Mamazu\DocumentationParser\Validator;
 
 use Mamazu\DocumentationParser\Parser\Block;
 use function array_merge;
+use function array_push;
 
 final class CompositeValidator implements ValidatorInterface
 {
     /** @var array<ValidatorInterface> */
     private $validators;
 
-    public function __construct(array $validators) {
+    /** @var bool */
+    private $continueValidationOnFailure;
+
+    public function __construct(array $validators, bool $continueValidationOnFailure = false) {
         $this->validators = $validators;
+        $this->continueValidationOnFailure = $continueValidationOnFailure;
     }
 
      /** {@inheritDoc} */
@@ -20,7 +25,12 @@ final class CompositeValidator implements ValidatorInterface
     {
         $error = [];
         foreach($this->validators as $validator) {
-            $error = array_merge($error, $validator->validate($block));
+            $newErrors = $validator->validate($block);
+            if ($this->continueValidationOnFailure || count($newErrors) === 0) {
+                $error = array_merge($error, $newErrors);
+            } else {
+                return $newErrors;
+            }
         }
 
         return $error;
