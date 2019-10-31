@@ -43,6 +43,6 @@ try {
     $output = $application->parse($arguments);
 //    echo (new Formatter())->format($output);
 } catch (Throwable $throwable) {
-    echo $throwable->getMessage();
+    fwrite(STDERR, $throwable->getMessage());
     die($throwable->getCode());
 }

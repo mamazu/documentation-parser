@@ -40,5 +40,13 @@ class Parser implements ParserInterface {
 ```
 
 Adding validators to it: Create a class that implements the `ValidatorInterface` and add it to the application
+```php
+class Validator implements ValidatorInterface {
+
+```
+
+```python
+print("Hello)
+```
 
 Adding validators to it: Create a class that implements the `ValidatorInterface` and add it to the application

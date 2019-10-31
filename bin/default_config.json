@@ -9,7 +9,7 @@
         ]
     },
     "parser": {
-        "*.md": ["Mamazu\\DocumentationParser\\Parser\\MarkdownParser"]
+        "*.md": ["Mamazu\\DocumentationParser\\Parser\\Parser\\MarkdownParser"]
     },
     "paths": [
         "README.md"
