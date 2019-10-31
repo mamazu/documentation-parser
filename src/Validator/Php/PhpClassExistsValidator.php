@@ -6,7 +6,6 @@ namespace Mamazu\DocumentationParser\Validator\Php;
 use Mamazu\DocumentationParser\Parser\Block;
 use Mamazu\DocumentationParser\Validator\Error;
 use Mamazu\DocumentationParser\Validator\ValidatorInterface;
-use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Use_;
 use PhpParser\Node\Stmt\UseUse;
 use PhpParser\Parser;
@@ -27,7 +26,7 @@ final class PhpClassExistsValidator implements ValidatorInterface
         $this->classExists = $classExists;
     }
 
-    public function getPHPCode(Block $block): string
+    private function getPHPCode(Block $block): string
     {
         $sourceCode = $block->getContent();
         if (strpos($sourceCode, '<?php') === false) {
@@ -44,8 +43,7 @@ final class PhpClassExistsValidator implements ValidatorInterface
             $statements = $this->parser->parse($this->getPHPCode($block));
             Assert::notNull($statements);
         } catch (\Throwable $exception) {
-            echo $exception->getMessage();
-            return [];
+            return $this->processSyntaxErrors($block, $exception->getMessage());
         }
 
         $errors = [];
@@ -58,6 +56,20 @@ final class PhpClassExistsValidator implements ValidatorInterface
         }
 
         return $errors;
+    }
+
+    private function processSyntaxErrors(Block $block, string $message): array
+    {
+        $matches = [];
+        if(preg_match('/(.*) on line (\d+)/si', $message, $matches) === 0) {
+            return [];
+        }
+
+        $message = $matches[1];
+        $lineNumber = (int) $matches[2];
+
+        return [Error::errorFromBlock($block, $lineNumber, $message)];
+
     }
 
     private function validateUseStatement(Block $block, array $useObject): array

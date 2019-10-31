@@ -2,6 +2,3 @@ extensions:
   FriendsOfPhpSpec\PhpSpec\CodeCoverage\CodeCoverageExtension:
     format:
       - text
-      - php
-    output:
-      php: coverage.php

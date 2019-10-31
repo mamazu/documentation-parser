@@ -28,6 +28,7 @@ class MarkdownParserSpec extends ObjectBehavior
     {
         $this->canParse('docs.md')->shouldReturn(true);
         $this->canParse('hello.py')->shouldReturn(false);
+        $this->canParse('hello.MD')->shouldReturn(true);
     }
 
     public function it_parses_a_markdown_file_without_code(): void
