@@ -7,7 +7,7 @@ namespace Mamazu\DocumentationParser;
 use Mamazu\DocumentationParser\Parser\Block;
 use Mamazu\DocumentationParser\Parser\ParserInterface;
 use Mamazu\DocumentationParser\Validator\Error;
-use Mamazu\DocumentationParser\Validator\ValidatorInterface;
+use Mamazu\DocumentationParser\ValidatorInterface;
 
 class Application
 {
@@ -33,9 +33,9 @@ class Application
                 continue;
             }
 
-            $blocks = $this->parser->parse($fileName);
+            $blocks = $this->getDocumentationBlocks($fileName);
             foreach ($blocks as $block) {
-                $errors = $this->validator->validate($block);
+                $errors = $this->validateBlock($block);
                 $validationErrors = array_merge($validationErrors, $errors);
             }
         }

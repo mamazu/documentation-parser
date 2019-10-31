@@ -17,7 +17,7 @@ echo 2+2;
 ```php
 <?php
 
-use Mamazu\DocumentationParser\Validator\XMLValidValidator;
+use Mamazu\DocumentationParser\Validator\XML\XMLValidValidator;
 
 $validator = new XMLValidValidator();
 

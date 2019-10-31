@@ -24,11 +24,6 @@ class Error
         $this->message = $message;
     }
 
-    public static function createFromBlock(Block $block, int $lineNumber, string $message): self
-    {
-        return new self($block->getFileName(), $block->getRelativeLineNumber() + $lineNumber, $message);
-    }
-
     public function getMessage(): string
     {
         return $this->message;
