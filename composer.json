@@ -17,6 +17,12 @@
         "thecodingmachine/safe": "^0.1.16",
         "nikic/php-parser": "^4.2"
     },
+    "require-dev": {
+        "phpspec/phpspec": "^5.1",
+        "phpstan/phpstan": "^0.11.13",
+        "phpstan/phpstan-strict-rules": "^0.11.1",
+        "phpstan/phpstan-webmozart-assert": "^0.11.2"
+    },
     "autoload": {
         "psr-4": {
             "Mamazu\\DocumentationParser\\": "src/"
@@ -27,10 +33,5 @@
             "spec\\": "spec/"
         }
     },
-    "require-dev": {
-        "phpspec/phpspec": "^5.1",
-        "phpstan/phpstan": "^0.11.13",
-        "phpstan/phpstan-strict-rules": "^0.11.1",
-        "phpstan/phpstan-webmozart-assert": "^0.11.2"
-    }
+    "bin": [ "bin/doc-parser.php" ]
 }
