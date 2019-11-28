@@ -6,9 +6,19 @@ namespace spec\Mamazu\DocumentationParser\Parser;
 
 use Mamazu\DocumentationParser\Parser\ParserInterface;
 use PhpSpec\ObjectBehavior;
+use org\bovigo\vfs\vfsStream;
+use org\bovigo\vfs\vfsStreamDirectory;
 
 class MarkdownParserSpec extends ObjectBehavior
 {
+    /** @var vfsStreamDirectory */
+    private $workDir;
+
+    public function let(): void
+    {
+        $this->workDir = vfsStream::setup('workDir');
+    }
+
     public function it_is_a_parser(): void
     {
         $this->shouldImplement(ParserInterface::class);
@@ -22,12 +32,28 @@ class MarkdownParserSpec extends ObjectBehavior
 
     public function it_parses_a_markdown_file_without_code(): void
     {
-        $this->parse(__DIR__ . '/../../../data/Markdown/simple_file.md')->shouldHaveCount(0);
+        # Setting up the file
+        $file = vfsStream::newFile('simple_file.md');
+        $file->setContent('Hello<a href="something"></a>');
+        $this->workDir->addChild($file);
+
+        $this->parse('vfs://workDir/simple_file.md')->shouldHaveCount(0);
     }
 
     public function it_parses_a_markdown_file_with_a_code_block(): void
     {
-        $result = $this->parse(__DIR__ . '/../../../data/Markdown/simple_code.md');
+        $file = vfsStream::newFile('simple_code.md');
+        $file->setContent(<<<MD
+Hello<a href="something"></a>
+```html
+<img src="picture.html" alt="Some picture"/>
+```
+MD
+);
+        $this->workDir->addChild($file);
+
+        $result = $this->parse('vfs://workDir/simple_code.md');
+
         $result->shouldHaveCount(1);
         $result[0]->getFileName()->shouldContain('simple_code.md');
         $result[0]->getRelativeLineNumber()->shouldBe(2);
@@ -37,7 +63,22 @@ class MarkdownParserSpec extends ObjectBehavior
 
     public function it_parses_a_markdown_file_with_multiple_code_blocks(): void
     {
-        $result = $this->parse(__DIR__ . '/../../../data/Markdown/multiple_code.md');
+        $file = vfsStream::newFile('multiple_code.md');
+        $file->setContent(<<<MD
+Hello<a href="something"></a>
+```html
+<img src="picture.html" alt="Some picture"/>
+```
+<p>Hello </p>
+```php
+<?php
+echo "Hello";
+```
+MD
+);
+        $this->workDir->addChild($file);
+
+        $result = $this->parse('vfs://workDir/multiple_code.md');
         $result->shouldHaveCount(2);
 
         $result[0]->getFileName()->shouldContain('multiple_code.md');
