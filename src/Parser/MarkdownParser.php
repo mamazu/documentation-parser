@@ -26,14 +26,14 @@ class MarkdownParser implements ParserInterface
                     $content = '';
                     $type = substr($lineContent, 3);
                     $beginLine = $lineNumber;
-                } else if(is_int($beginLine)) {
+                } else if (is_int($beginLine)) {
                     $blocks[] = new Block($fileName, trim($content), $beginLine + 1, $type);
                     $beginLine = null;
                 } else {
                     throw new \InvalidArgumentException('The line numbers have to be an int or null');
                 }
             } else {
-                $content .= $lineContent . "\n";
+                $content .= $lineContent."\n";
             }
         }
 

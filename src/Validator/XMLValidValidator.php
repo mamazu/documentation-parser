@@ -11,7 +11,7 @@ use Mamazu\DocumentationParser\Validator\Error;
 final class XMLValidValidator implements ValidatorInterface
 {
 
-     /** {@inheritDoc} */
+        /** {@inheritDoc} */
     public function validate(Block $block): array
     {
         libxml_use_internal_errors(true);
@@ -22,7 +22,7 @@ final class XMLValidValidator implements ValidatorInterface
         $errors = libxml_get_errors();
         libxml_clear_errors();
 
-        return array_map(static function (LibXMLError $error) use ($block) : Error {
+        return array_map(static function(LibXMLError $error) use ($block) : Error {
             return Error::errorFromBlock($block, $error->line, trim($error->message));
         }, $errors);
     }

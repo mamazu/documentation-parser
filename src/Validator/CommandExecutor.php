@@ -35,9 +35,9 @@ final class CommandExecutor implements ValidatorInterface
         $errors = [];
         foreach ($output as $outputLine) {
             $match = [];
-            if(preg_match($this->formatString, $outputLine, $match) !== 0) {
+            if (preg_match($this->formatString, $outputLine, $match) !== 0) {
                 $error = $this->parseMatch($match);
-                if($error !== null) {
+                if ($error !== null) {
                     $errors[] = $error;
                 }
             }

@@ -14,8 +14,8 @@ class Formatter
         return implode(
             "\n",
             array_map(
-                function (Error $error) {
-                    return $error->getFileName() . ':' . $error->getLineNumber() . ' ---- ' . $error->getMessage();
+                function(Error $error) {
+                    return $error->getFileName().':'.$error->getLineNumber().' ---- '.$error->getMessage();
                 },
                 $output
             )
