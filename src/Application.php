@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Mamazu\DocumentationParser;
 
 use Mamazu\DocumentationParser\Parser\Block;
-use Mamazu\DocumentationParser\Parser\ParserInterface;
+use Mamazu\DocumentationParser\Parser\Parser\ParserInterface;
 use Mamazu\DocumentationParser\Validator\Error;
-use Mamazu\DocumentationParser\ValidatorInterface;
+use Mamazu\DocumentationParser\Validator\ValidatorInterface;
 
 class Application
 {
@@ -23,7 +23,10 @@ class Application
         $this->validator = $validator;
     }
 
-    /** @return array<Error> */
+    /**
+     * @param array<string> $files
+     * @return array<Error>
+     */
     public function parse(array $files): array
     {
         $validationErrors = [];
