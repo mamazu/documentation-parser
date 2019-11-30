@@ -22,7 +22,7 @@ class CommandLineRunner implements CommandLineRunnerInterface
         exec($command, $output, $returnValue);
 
         if ($returnValue !== 0 && $this->throwExceptionOnNonZeroErrorCode) {
-            throw new \Exception('Program has exited with error code: ' . $returnValue);
+            throw new \Exception('Program has exited with error code: '.$returnValue);
         }
 
         return $output;

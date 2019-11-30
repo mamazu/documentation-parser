@@ -31,7 +31,7 @@ final class PhpClassExistsValidator implements ValidatorInterface
     {
         $sourceCode = $block->getContent();
         if (strpos($sourceCode, '<?php') === false) {
-            return '<?php ' . $sourceCode;
+            return '<?php '.$sourceCode;
         }
 
         return $sourceCode;
@@ -49,8 +49,8 @@ final class PhpClassExistsValidator implements ValidatorInterface
         }
 
         $errors = [];
-        foreach($statements as $statement) {
-            if($statement instanceof Use_) {
+        foreach ($statements as $statement) {
+            if ($statement instanceof Use_) {
                 /** @var array<UseUse> $useObject */
                 $useObject = $statement->uses;
                 $errors = array_merge($errors, $this->validateUseStatement($block, $useObject));
@@ -63,13 +63,13 @@ final class PhpClassExistsValidator implements ValidatorInterface
     private function validateUseStatement(Block $block, array $useObject): array
     {
         $errors = [];
-        foreach($useObject as $useStatement) {
+        foreach ($useObject as $useStatement) {
             /** @var UseUse $useStatement */
-            $className = (string)$useStatement->name;
+            $className = (string) $useStatement->name;
             $classExistenceChecker = $this->classExists;
             $classExists = $classExistenceChecker($className);
-            if(!$classExists) {
-                $errors[] = Error::errorFromBlock($block, $useStatement->getLine(), 'Unknown class: '. $className);
+            if (!$classExists) {
+                $errors[] = Error::errorFromBlock($block, $useStatement->getLine(), 'Unknown class: '.$className);
             }
         }
 

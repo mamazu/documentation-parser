@@ -15,16 +15,17 @@ final class CompositeValidator implements ValidatorInterface
     /** @var bool */
     private $continueValidationOnFailure;
 
-    public function __construct(array $validators, bool $continueValidationOnFailure = false) {
+    public function __construct(array $validators, bool $continueValidationOnFailure = false)
+    {
         $this->validators = $validators;
         $this->continueValidationOnFailure = $continueValidationOnFailure;
     }
 
-     /** {@inheritDoc} */
+        /** {@inheritDoc} */
     public function validate(Block $block): array
     {
         $error = [];
-        foreach($this->validators as $validator) {
+        foreach ($this->validators as $validator) {
             $newErrors = $validator->validate($block);
             if ($this->continueValidationOnFailure || count($newErrors) === 0) {
                 $error = array_merge($error, $newErrors);

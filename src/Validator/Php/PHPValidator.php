@@ -26,11 +26,11 @@ class PHPValidator implements ValidatorInterface
     {
         file_put_contents($this->tempPath, $this->makePhpCode($block->getContent()));
 
-        $output = $this->commandLineRunner->run('php -l ' . $this->tempPath . ' 2>&1');
+        $output = $this->commandLineRunner->run('php -l '.$this->tempPath.' 2>&1');
 
-        return array_map(function (string $errorMessage) use ($block): Error {
+        return array_map(function(string $errorMessage) use ($block): Error {
             return $this->parseErrors($block, $errorMessage);
-        }, array_filter($output, static function (string $message): bool {
+        }, array_filter($output, static function(string $message): bool {
             return strpos($message, 'PHP Parse error') === 0;
         }));
     }
@@ -38,7 +38,7 @@ class PHPValidator implements ValidatorInterface
     private function makePhpCode(string $sourceCode): string
     {
         if (strpos($sourceCode, '<?php') === false) {
-            return '<?php ' . $sourceCode;
+            return '<?php '.$sourceCode;
         }
 
         return $sourceCode;
@@ -49,7 +49,7 @@ class PHPValidator implements ValidatorInterface
         $tempPath = str_replace('/', '\\/', $this->tempPath);
 
         $matches = [];
-        preg_match('/PHP Parse error: (.*) in ' . $tempPath . ' on line (\d+)/', $message, $matches);
+        preg_match('/PHP Parse error: (.*) in '.$tempPath.' on line (\d+)/', $message, $matches);
         $message = $matches[1];
         $lineNumber = (int) $matches[2];
 
