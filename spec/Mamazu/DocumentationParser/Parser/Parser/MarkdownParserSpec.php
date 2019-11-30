@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace spec\Mamazu\DocumentationParser\Parser;
+namespace spec\Mamazu\DocumentationParser\Parser\Parser;
 
-use Mamazu\DocumentationParser\Parser\ParserInterface;
+use Mamazu\DocumentationParser\Parser\Parser\ParserInterface;
 use PhpSpec\ObjectBehavior;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
@@ -28,6 +28,7 @@ class MarkdownParserSpec extends ObjectBehavior
     {
         $this->canParse('docs.md')->shouldReturn(true);
         $this->canParse('hello.py')->shouldReturn(false);
+        $this->canParse('hello.MD')->shouldReturn(true);
     }
 
     public function it_parses_a_markdown_file_without_code(): void
@@ -85,7 +86,7 @@ MD
         $result[0]->getRelativeLineNumber()->shouldBe(2);
         $result[0]->getContent()->shouldBe('<img src="picture.html" alt="Some picture"/>');
         $result[0]->getType()->shouldBe('html');
-        
+
         $result[1]->getFileName()->shouldContain('multiple_code.md');
         $result[1]->getRelativeLineNumber()->shouldBe(6);
         $result[1]->getContent()->shouldBe("<?php\necho \"Hello\";");

@@ -22,7 +22,8 @@
         "phpstan/phpstan": "^0.11.13",
         "phpstan/phpstan-strict-rules": "^0.11.1",
         "phpstan/phpstan-webmozart-assert": "^0.11.2",
-        "mikey179/vfsstream": "^1.6"
+        "mikey179/vfsstream": "^1.6",
+        "friends-of-phpspec/phpspec-code-coverage": "^4.3"
     },
     "autoload": {
         "psr-4": {

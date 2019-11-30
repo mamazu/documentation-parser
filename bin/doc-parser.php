@@ -11,12 +11,10 @@ include __DIR__.'/../vendor/autoload.php';
 
 use Mamazu\DocumentationParser\Application;
 use Mamazu\DocumentationParser\Output\Formatter;
-use Mamazu\DocumentationParser\Parser\MarkdownParser;
-use Mamazu\DocumentationParser\SystemAbstraction\CommandLineRunner;
+use Mamazu\DocumentationParser\Parser\Parser\MarkdownParser;
 use Mamazu\DocumentationParser\Validator\CompositeValidator;
 use Mamazu\DocumentationParser\Validator\Php\PhpClassExistsValidator;
-use Mamazu\DocumentationParser\Validator\Php\PHPValidator;
-use Mamazu\DocumentationParser\Validator\XMLValidValidator;
+use Mamazu\DocumentationParser\Validator\XML\XMLValidValidator;
 use PhpParser\ParserFactory;
 
 $arguments = $argv;
@@ -30,7 +28,6 @@ try {
             'php' =>
                 new CompositeValidator(
                     [
-                        new PHPValidator(new CommandLineRunner()),
                         new PHPClassExistsValidator(
                             (new ParserFactory)->create(ParserFactory::PREFER_PHP7),
                             'class_exists'
@@ -41,8 +38,9 @@ try {
         ]
     );
     $output = $application->parse($arguments);
-//    echo (new Formatter())->format($output);
+    echo (new Formatter())->format($output);
 } catch (Throwable $throwable) {
-    echo $throwable->getMessage();
+    fwrite(STDERR, $throwable->getMessage());
+    echo $throwable->getTraceAsString();
     die($throwable->getCode());
 }
