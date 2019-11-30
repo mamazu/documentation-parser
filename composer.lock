@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "ebeaa54504b2e6f984db8e336327a3b5",
+    "content-hash": "583060413361a8db12e3332f77f7822f",
     "packages": [
         {
             "name": "nikic/php-parser",
@@ -293,21 +293,21 @@
         },
         {
             "name": "friends-of-phpspec/phpspec-code-coverage",
-            "version": "v4.3.1",
+            "version": "v4.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/friends-of-phpspec/phpspec-code-coverage.git",
-                "reference": "06c6e7f785ead7345983decf04a776cb1ea9c6a7"
+                "reference": "9a54302573094cc1b3bdca3cc78c58582130b254"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/friends-of-phpspec/phpspec-code-coverage/zipball/06c6e7f785ead7345983decf04a776cb1ea9c6a7",
-                "reference": "06c6e7f785ead7345983decf04a776cb1ea9c6a7",
+                "url": "https://api.github.com/repos/friends-of-phpspec/phpspec-code-coverage/zipball/9a54302573094cc1b3bdca3cc78c58582130b254",
+                "reference": "9a54302573094cc1b3bdca3cc78c58582130b254",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.1",
-                "phpspec/phpspec": "^4.2 || ^5.0",
+                "phpspec/phpspec": "^4.2 || ^5.0 || ^6.0",
                 "phpunit/php-code-coverage": "^5.0 || ^6.0 || ^7.0"
             },
             "require-dev": {
@@ -371,7 +371,7 @@
                 "test",
                 "tests"
             ],
-            "time": "2019-10-01T14:43:24+00:00"
+            "time": "2019-11-12T10:27:45+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
