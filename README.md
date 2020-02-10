@@ -8,9 +8,6 @@ Every project needs documentation which is usually accompanied by code snippets 
 
 `php vendor/bin/doc-parser.php <files to check>`
 
-## Extending it
-This plugin will have a Symfony integration.
-
 ## How to configure it
 Configuration of the software is done in code. If you want to add a new parser or validator you need to change the instantiation code of the application in the `bin/doc-parser.php` file.
 
@@ -35,18 +32,11 @@ The first list of objects are the parsers that extract the source code out of th
 Adding parsers to it: Create a class that implements the `ParserInterface` and add it to the application e.g.
 ```php
 class Parser implements ParserInterface {
-
 }
 ```
 
 Adding validators to it: Create a class that implements the `ValidatorInterface` and add it to the application
 ```php
 class Validator implements ValidatorInterface {
-
+}
 ```
-
-```python
-print("Hello)
-```
-
-Adding validators to it: Create a class that implements the `ValidatorInterface` and add it to the application
