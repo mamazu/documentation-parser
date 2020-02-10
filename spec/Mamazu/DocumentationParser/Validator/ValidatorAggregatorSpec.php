@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace spec\Mamazu\DocumentationParser\Validator;
 
 use Mamazu\DocumentationParser\Parser\Block;
-use Mamazu\DocumentationParser\Validator\Error;
+use Mamazu\DocumentationParser\Error\Error;
 use Mamazu\DocumentationParser\Validator\ValidatorInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -40,7 +40,7 @@ class ValidatorAggregatorSpec extends ObjectBehavior
 
         $this->validate($block)->shouldHaveCount(1);
     }
-    
+
     public function it_returns_no_errors_if_the_validator_is_not_defined(Block $block): void
     {
         $block->getType()->willReturn('php');

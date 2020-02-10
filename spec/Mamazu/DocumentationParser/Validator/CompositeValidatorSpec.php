@@ -4,7 +4,7 @@ namespace spec\Mamazu\DocumentationParser\Validator;
 
 use Mamazu\DocumentationParser\Parser\Block;
 use Mamazu\DocumentationParser\Validator\CompositeValidator;
-use Mamazu\DocumentationParser\Validator\Error;
+use Mamazu\DocumentationParser\Error\Error;
 use Mamazu\DocumentationParser\Validator\ValidatorInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;

@@ -3,10 +3,10 @@ declare(strict_types=1);
 
 namespace spec\Mamazu\DocumentationParser\Output;
 
-use Mamazu\DocumentationParser\Validator\Error;
+use Mamazu\DocumentationParser\Error\Error;
 use PhpSpec\ObjectBehavior;
 
-class FormatterSpec extends ObjectBehavior 
+class FormatterSpec extends ObjectBehavior
 {
     public function it_formats_the_an_error(): void
     {

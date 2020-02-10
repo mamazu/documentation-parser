@@ -6,7 +6,7 @@ namespace Mamazu\DocumentationParser;
 
 use Mamazu\DocumentationParser\Parser\Block;
 use Mamazu\DocumentationParser\Parser\Parser\ParserInterface;
-use Mamazu\DocumentationParser\Validator\Error;
+use Mamazu\DocumentationParser\Error\Error;
 use Mamazu\DocumentationParser\Validator\ValidatorInterface;
 
 class Application

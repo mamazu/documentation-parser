@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace spec\Mamazu\DocumentationParser\Validator;
+namespace spec\Mamazu\DocumentationParser\Error;
 
 use Mamazu\DocumentationParser\Parser\Block;
 use PhpSpec\ObjectBehavior;

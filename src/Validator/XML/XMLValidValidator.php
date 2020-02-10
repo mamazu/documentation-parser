@@ -6,7 +6,7 @@ namespace Mamazu\DocumentationParser\Validator\XML;
 use DOMDocument;
 use LibXMLError;
 use Mamazu\DocumentationParser\Parser\Block;
-use Mamazu\DocumentationParser\Validator\Error;
+use Mamazu\DocumentationParser\Error\Error;
 use Mamazu\DocumentationParser\Validator\ValidatorInterface;
 
 final class XMLValidValidator implements ValidatorInterface

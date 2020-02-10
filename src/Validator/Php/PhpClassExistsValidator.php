@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace Mamazu\DocumentationParser\Validator\Php;
 
 use Mamazu\DocumentationParser\Parser\Block;
-use Mamazu\DocumentationParser\Validator\Error;
+use Mamazu\DocumentationParser\Error\Error;
 use Mamazu\DocumentationParser\Validator\ValidatorInterface;
 use PhpParser\Node\Stmt\Use_;
 use PhpParser\Node\Stmt\UseUse;

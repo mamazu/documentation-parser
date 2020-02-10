@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Mamazu\DocumentationParser\Output;
 
-use Mamazu\DocumentationParser\Validator\Error;
+use Mamazu\DocumentationParser\Error\Error;
 
 class Formatter
 {

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mamazu\DocumentationParser\Validator;
 
 use Mamazu\DocumentationParser\Parser\Block;
-use Mamazu\DocumentationParser\Validator\Error;
+use Mamazu\DocumentationParser\Error\Error;
 
 interface ValidatorInterface
 {

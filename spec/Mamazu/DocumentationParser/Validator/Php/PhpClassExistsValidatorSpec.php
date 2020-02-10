@@ -9,16 +9,16 @@ use PhpParser\Node\Stmt\Use_;
 use PhpParser\Node\Stmt\UseUse;
 use PhpParser\Parser;
 use PhpSpec\ObjectBehavior;
-use Mamazu\DocumentationParser\Validator\Error as DocError;
+use Mamazu\DocumentationParser\Error\Error as DocError;
 
 class PhpClassExistsValidatorSpec extends ObjectBehavior
 {
     public function let(Parser $parser): void
     {
-        $this->beConstructedWith($parser, function () { return true; });
+        $this->beConstructedWith($parser, static function () { return true; });
     }
 
-    function it_is_a_validator(): void
+    public function it_is_a_validator(): void
     {
         $this->shouldImplement(ValidatorInterface::class);
     }
