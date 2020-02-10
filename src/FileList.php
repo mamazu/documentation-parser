@@ -30,12 +30,13 @@ class FileList
 
     public function getAllValidFiles(): array
     {
-        $validFiles =[];
+        $validFiles = [];
         foreach ($this->files as $file) {
             if (!file_exists($file)) {
                 trigger_error('Could not find file: '.$file, E_USER_WARNING);
                 continue;
             }
+            $validFiles[] = $file;
         }
 
         return $validFiles;

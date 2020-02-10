@@ -19,4 +19,4 @@ script:
 
   - vendor/bin/phpstan analyse
   - vendor/bin/phpspec run --format dot -vvv --no-interaction
-  - php bin/doc-parser.php bin/default_config.json
+  - php bin/doc-parser.php bin/example.md

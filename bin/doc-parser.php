@@ -45,8 +45,6 @@ $application = new Application(
 $extensionFile = $cli->getIncludeFile();
 if ($extensionFile !== null) {
     include $extensionFile;
-} else {
-    echo 'Could not load extension. Continuing anyway';
 }
 
 try {
