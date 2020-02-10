@@ -24,18 +24,12 @@ class Application
     }
 
     /**
-     * @param array<string> $files
      * @return array<Error>
      */
-    public function parse(array $files): array
+    public function parse(FileList $fileList): array
     {
         $validationErrors = [];
-        foreach ($files as $fileName) {
-            if (!\file_exists($fileName)) {
-                echo 'Could not find file: '.$fileName.PHP_EOL;
-                continue;
-            }
-
+        foreach ($fileList->getAllValidFiles() as $fileName) {
             $blocks = $this->getDocumentationBlocks($fileName);
             foreach ($blocks as $block) {
                 $errors = $this->validateBlock($block);

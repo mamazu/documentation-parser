@@ -21,7 +21,11 @@ final class CompositeValidator implements ValidatorInterface
         $this->continueValidationOnFailure = $continueValidationOnFailure;
     }
 
-        /** {@inheritDoc} */
+    public function addValidator(ValidatorInterface $validator): void {
+        $this->validators[] = $validator;
+    }
+
+    /** {@inheritDoc} */
     public function validate(Block $block): array
     {
         $error = [];

@@ -10,6 +10,8 @@ if ($argc < 2) {
 include __DIR__.'/../vendor/autoload.php';
 
 use Mamazu\DocumentationParser\Application;
+use Mamazu\DocumentationParser\CLI;
+use Mamazu\DocumentationParser\FileList;
 use Mamazu\DocumentationParser\Output\Formatter;
 use Mamazu\DocumentationParser\Parser\Parser\MarkdownParser;
 use Mamazu\DocumentationParser\Validator\CompositeValidator;
@@ -19,25 +21,36 @@ use PhpParser\ParserFactory;
 
 $arguments = $argv;
 array_shift($arguments);
+
+$cli = new CLI(new FileList(), $arguments);
+
+$application = new Application(
+    [
+        new MarkdownParser(),
+    ],
+    [
+        'php' =>
+            new CompositeValidator(
+                [
+                    new PHPClassExistsValidator(
+                        (new ParserFactory)->create(ParserFactory::PREFER_PHP7),
+                        'class_exists'
+                    ),
+                ]
+            ),
+        'xml' => new XMLValidValidator(),
+    ]
+);
+
+$extensionFile = $cli->getIncludeFile();
+if ($extensionFile !== null) {
+    include $extensionFile;
+} else {
+    echo 'Could not load extension. Continuing anyway';
+}
+
 try {
-    $application = new Application(
-        [
-            new MarkdownParser(),
-        ],
-        [
-            'php' =>
-                new CompositeValidator(
-                    [
-                        new PHPClassExistsValidator(
-                            (new ParserFactory)->create(ParserFactory::PREFER_PHP7),
-                            'class_exists'
-                        ),
-                    ]
-                ),
-            'xml' => new XMLValidValidator(),
-        ]
-    );
-    $output = $application->parse($arguments);
+    $output = $application->parse($cli->getFilesToParse());
     echo (new Formatter())->format($output);
 } catch (Throwable $throwable) {
     fwrite(STDERR, $throwable->getMessage());
