@@ -15,7 +15,7 @@ class PhpClassExistsValidatorSpec extends ObjectBehavior
 {
     public function let(Parser $parser): void
     {
-        $this->beConstructedWith($parser, static function () { return true; });
+        $this->beConstructedWith(static function () { return true; }, $parser);
     }
 
     public function it_is_a_validator(): void
@@ -54,7 +54,7 @@ class PhpClassExistsValidatorSpec extends ObjectBehavior
         Use_ $useStatement,
         UseUse $useObject
     ): void {
-        $this->beConstructedWith($parser, static function (string $className) { return $className === 'SomeClass'; });
+        $this->beConstructedWith(static function (string $className) { return $className === 'SomeClass'; }, $parser);
 
         $block->getType()->willReturn('php');
         $block->getFileName()->willReturn('some_file.php');
@@ -78,7 +78,7 @@ class PhpClassExistsValidatorSpec extends ObjectBehavior
         Use_ $useStatement,
         UseUse $useObject
     ): void {
-        $this->beConstructedWith($parser, static function (string $className) { return $className !== 'SomeClass'; });
+        $this->beConstructedWith(static function (string $className) { return $className !== 'SomeClass'; }, $parser);
 
         $block->getType()->willReturn('php');
         $block->getFileName()->willReturn('some_file.php');

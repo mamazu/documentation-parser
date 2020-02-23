@@ -3,11 +3,10 @@ declare(strict_types=1);
 
 namespace spec\Mamazu\DocumentationParser;
 
-use Mamazu\DocumentationParser\FileList;
+use InvalidArgumentException;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 
 class FileListSpec extends ObjectBehavior
 {
@@ -37,7 +36,8 @@ class FileListSpec extends ObjectBehavior
         $this->addFile('vfs://workDir/bananas.php');
 
         $this->shouldTrigger(E_USER_WARNING, 'Could not find file: vfs://workDir/bananas.php')
-             ->during('getAllValidFiles');
+             ->during('getAllValidFiles')
+        ;
     }
 
     public function it_adds_a_file()
@@ -45,5 +45,13 @@ class FileListSpec extends ObjectBehavior
         $this->addFile('abc.md');
 
         $this->getAllFiles()->shouldIterateAs(['abc.md']);
+    }
+
+    public function it_throws_an_exception_when_adding_a_directory(): void
+    {
+        $this->workDir->addChild(vfsStream::newDirectory('abc'));
+
+        $this->shouldThrow(InvalidArgumentException::class)
+            ->during('addFile', ['vfs://workDir/abc']);
     }
 }

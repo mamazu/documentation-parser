@@ -3,6 +3,9 @@ declare(strict_types=1);
 
 namespace Mamazu\DocumentationParser;
 
+use Exception;
+use InvalidArgumentException;
+
 class FileList
 {
     /** @var array<string> */
@@ -10,6 +13,9 @@ class FileList
 
     public function addFile(string $filePath): void
     {
+        if (is_dir($filePath)) {
+            throw new InvalidArgumentException('Directories are not implemented yet. Please specify the files individually.');
+        }
         $this->files[] = $filePath;
     }
 

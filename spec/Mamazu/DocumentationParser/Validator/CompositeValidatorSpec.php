@@ -17,6 +17,12 @@ class CompositeValidatorSpec extends ObjectBehavior
         $this->shouldImplement(ValidatorInterface::class);
     }
 
+    public function it_adds_a_validator(ValidatorInterface $validator): void
+    {
+        $this->beConstructedWith([]);
+        $this->addValidator($validator);
+    }
+
     public function it_validates_with_multiple_validators(
         ValidatorInterface $validator1,
         ValidatorInterface $validator2,
