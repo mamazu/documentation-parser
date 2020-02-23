@@ -7,7 +7,12 @@ if ($argc < 2) {
     die(1);
 }
 
-include __DIR__.'/../vendor/autoload.php';
+$autoloadPath = __DIR__.'/../vendor/autoload.php';
+if(file_exists($autoloadPath)) {
+    include $autoloadPath;
+} else {
+    include __DIR__.'/../../../autoload.php';
+}
 
 use Mamazu\DocumentationParser\Application;
 use Mamazu\DocumentationParser\CLI;
