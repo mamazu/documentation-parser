@@ -9,6 +9,7 @@ use Mamazu\DocumentationParser\Validator\ValidatorInterface;
 use PhpParser\Node\Stmt\Use_;
 use PhpParser\Node\Stmt\UseUse;
 use PhpParser\Parser;
+use PhpParser\ParserFactory;
 use Webmozart\Assert\Assert;
 use function array_merge;
 
@@ -20,9 +21,9 @@ final class PhpClassExistsValidator implements ValidatorInterface
     /** @var callable */
     private $classExists;
 
-    public function __construct(Parser $parser, callable $classExists)
+    public function __construct(callable $classExists, ?Parser $parser = null)
     {
-        $this->parser = $parser;
+        $this->parser = $parser ?? (new ParserFactory)->create(ParserFactory::PREFER_PHP7);
         $this->classExists = $classExists;
     }
 

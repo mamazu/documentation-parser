@@ -22,7 +22,6 @@ use Mamazu\DocumentationParser\Parser\Parser\MarkdownParser;
 use Mamazu\DocumentationParser\Validator\CompositeValidator;
 use Mamazu\DocumentationParser\Validator\Php\PhpClassExistsValidator;
 use Mamazu\DocumentationParser\Validator\XML\XMLValidValidator;
-use PhpParser\ParserFactory;
 
 $arguments = $argv;
 array_shift($arguments);
@@ -38,8 +37,9 @@ $application = new Application(
             new CompositeValidator(
                 [
                     new PHPClassExistsValidator(
-                        (new ParserFactory)->create(ParserFactory::PREFER_PHP7),
-                        'class_exists'
+                        function (string $classOrInterface): bool {
+                            return class_exists($classOrInterface) || interface_exists($classOrInterface);
+                        }
                     ),
                 ]
             ),
@@ -58,5 +58,9 @@ try {
 } catch (Throwable $throwable) {
     fwrite(STDERR, $throwable->getMessage());
     echo $throwable->getTraceAsString();
-    die($throwable->getCode());
+    exit($throwable->getCode());
+}
+
+if(count($output) > 0) {
+    exit(1);
 }
