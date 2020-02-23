@@ -55,6 +55,11 @@ class Application
     private function validateBlock(Block $block): array
     {
         $type = $block->getType();
+
+        if(!array_key_exists($type, $this->validator)) {
+            return [];
+        }
+
         $handler = $this->validator[$type];
 
         return $handler->validate($block);
