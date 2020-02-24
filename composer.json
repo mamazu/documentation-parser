@@ -18,7 +18,7 @@
         "nikic/php-parser": "^4.2"
     },
     "require-dev": {
-        "phpspec/phpspec": "^5.1",
+        "phpspec/phpspec": "^5.1|^6.0",
         "phpstan/phpstan": "^0.11.13",
         "phpstan/phpstan-strict-rules": "^0.11.1",
         "phpstan/phpstan-webmozart-assert": "^0.11.2",
