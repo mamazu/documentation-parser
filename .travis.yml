@@ -12,7 +12,7 @@ cache:
   directories:
     - ~/.composer/cache/files
 
-install: composer update --no-interaction
+install: composer install --no-interaction
 
 script:
   - composer validate --strict
