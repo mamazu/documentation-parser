@@ -3,13 +3,13 @@ Hello I am a normal markdown with **bold**, ~~underline~~ and _italic_ text and 
 
 ```xml
 <a>
-<b
+<b/>
 </a>
 ```
 
 ```php
 // Test
-echo "Hallo"
+echo "Hallo";
 
 echo 2+2;
 ```
