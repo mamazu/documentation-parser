@@ -19,6 +19,4 @@ script:
 
   - vendor/bin/phpstan analyse
   - vendor/bin/phpspec run --format dot -vvv --no-interaction
-  - "set -e"
-  - (! (php bin/doc-parser.php bin/example.md)) || exit 1
-  - 'set +e'
+  - bin/doc-parser bin/example.md

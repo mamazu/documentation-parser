@@ -6,7 +6,7 @@ Every project needs documentation which is usually accompanied by code snippets 
 ## Installation
 `composer require --dev mamazu/documentation-validator`
 
-`php vendor/bin/doc-parser.php <files to check>`
+`vendor/bin/doc-parser <files to check>`
 
 ## How to configure it
 Configuration of the software is done in code. There is an extension point in the binary which can be used to inject any piece of code. You can run the application with the `-c` option and provide a file name and this file will be run before the validation is executed.
