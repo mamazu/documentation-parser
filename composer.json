@@ -35,5 +35,5 @@
             "spec\\": "spec/"
         }
     },
-    "bin": [ "bin/doc-parser.php" ]
+    "bin": [ "bin/doc-parser" ]
 }
