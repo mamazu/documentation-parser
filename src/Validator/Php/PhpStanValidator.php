@@ -58,8 +58,7 @@ final class PhpStanValidator implements ValidatorInterface
 
         return array_map(
             static function (array $error) use ($block) {
-
-                return Error::errorFromBlock($block, $error['line'], $error['message']);
+                return Error::errorFromBlock($block, $error['line'] ?? 0, $error['message']);
             },
             $parsed
         );
