@@ -9,7 +9,7 @@ Hello I am a normal markdown with **bold**, ~~underline~~ and _italic_ text and 
 
 ```php
 // Test
-echo "Hallo";
+echo 'Hallo';
 
 echo 2+2;
 ```
@@ -17,11 +17,11 @@ echo 2+2;
 ```php
 <?php
 
+use Mamazu\DocumentationParser\Parser\Block;
 use Mamazu\DocumentationParser\Validator\XML\XMLValidValidator;
 
 $validator = new XMLValidValidator();
 
-new Mamazu\DocumentationParser\Validator\Php\PHPValidator();
-
-(new Mamazu\DocumentationParser\Validator\Php\PHPValidator())->validate();
+$b = new Block('/tmp','test',1,'txt');
+(new Mamazu\DocumentationParser\Validator\CompositeValidator([]))->validate($b);
 ```

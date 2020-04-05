@@ -30,7 +30,7 @@ class ParserAggregatorSpec extends ObjectBehavior
         $this->addParser('php', $parser);
     }
 
-    public function it_deligates_the_parsing(ParserInterface $parser1, ParserInterface $parser2)
+    public function it_deligates_the_parsing(ParserInterface $parser1, ParserInterface $parser2): void
     {
         $this->beConstructedWith(['md' => $parser1, 'rst' => $parser2]);
 
@@ -41,5 +41,9 @@ class ParserAggregatorSpec extends ObjectBehavior
         $parser2->parse(Argument::any())->shouldNotBeCalled();
 
         $this->parse('hello.md')->shouldHaveCount(1);
+    }
+
+    public function it_returns_an_empty_array_if_no_parser_is_defined(): void {
+        $this->parse('hello.md')->shouldBe([]);
     }
 }

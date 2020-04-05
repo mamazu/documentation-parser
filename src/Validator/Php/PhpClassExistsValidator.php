@@ -5,6 +5,8 @@ namespace Mamazu\DocumentationParser\Validator\Php;
 
 use Mamazu\DocumentationParser\Parser\Block;
 use Mamazu\DocumentationParser\Error\Error;
+use Mamazu\DocumentationParser\Utils\PhpCodeEnsurer;
+use Mamazu\DocumentationParser\Utils\PhpCodeEnsurerInterface;
 use Mamazu\DocumentationParser\Validator\ValidatorInterface;
 use PhpParser\Node\Stmt\Use_;
 use PhpParser\Node\Stmt\UseUse;
@@ -21,27 +23,22 @@ final class PhpClassExistsValidator implements ValidatorInterface
     /** @var callable */
     private $classExists;
 
-    public function __construct(callable $classExists, ?Parser $parser = null)
+    /** @var PhpCodeEnsurerInterface */
+    private $codeEnsurer;
+
+    public function __construct(callable $classExists, ?Parser $parser = null, ?PhpCodeEnsurerInterface $codeEnsurer = null)
     {
         $this->parser = $parser ?? (new ParserFactory)->create(ParserFactory::PREFER_PHP7);
         $this->classExists = $classExists;
-    }
-
-    private function getPHPCode(Block $block): string
-    {
-        $sourceCode = $block->getContent();
-        if (strpos($sourceCode, '<?php') === false) {
-            return '<?php '.$sourceCode;
-        }
-
-        return $sourceCode;
+        $this->codeEnsurer = $codeEnsurer ?? new PhpCodeEnsurer();
     }
 
     /** {@inheritDoc} */
     public function validate(Block $block): array
     {
+        $phpCode = $this->codeEnsurer->getPHPCode($block->getContent());
         try {
-            $statements = $this->parser->parse($this->getPHPCode($block));
+            $statements = $this->parser->parse($phpCode);
             Assert::notNull($statements);
         } catch (\Throwable $exception) {
             return $this->processSyntaxErrors($block, $exception->getMessage());

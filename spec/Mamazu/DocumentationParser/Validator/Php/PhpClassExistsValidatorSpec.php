@@ -23,6 +23,14 @@ class PhpClassExistsValidatorSpec extends ObjectBehavior
         $this->shouldImplement(ValidatorInterface::class);
     }
 
+    public function it_does_nothing_if_it_is_a_php_tag(Parser $parser, Block $block): void {
+        $block->getContent()->willReturn('<?php');
+
+        $parser->parse('<?php')->shouldBeCalled()->willReturn(null);
+
+        $this->validate($block)->shouldReturn([]);
+    }
+
     public function it_does_not_throw_an_exception_if_the_parser_returns_nothing(Parser $parser, Block $block): void {
         $block->getContent()->willReturn('');
 
