@@ -37,7 +37,7 @@ $application = new Application(
             new CompositeValidator(
                 [
                     new PHPClassExistsValidator(
-                        function (string $classOrInterface): bool {
+                        static function (string $classOrInterface): bool {
                             return class_exists($classOrInterface) || interface_exists($classOrInterface);
                         }
                     ),

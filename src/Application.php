@@ -23,6 +23,16 @@ class Application
         $this->validator = $validator;
     }
 
+    public function getParser(): array
+    {
+        return $this->parser;
+    }
+
+    public function getValidator(): array
+    {
+        return $this->validator;
+    }
+
     /**
      * @return array<Error>
      */

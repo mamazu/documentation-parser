@@ -5,6 +5,7 @@ namespace Mamazu\DocumentationParser\Validator\Php;
 
 use Mamazu\DocumentationParser\Error\Error;
 use Mamazu\DocumentationParser\Parser\Block;
+use Mamazu\DocumentationParser\Utils\PhpCodeEnsurer;
 use Mamazu\DocumentationParser\Utils\PhpCodeEnsurerInterface;
 use Mamazu\DocumentationParser\Validator\ValidatorInterface;
 use PHPStan\Command\AnalyseCommand;
@@ -30,7 +31,7 @@ final class PhpStanValidator implements ValidatorInterface
     private $codeEnsurer;
 
     public function __construct(
-        PhpCodeEnsurerInterface $codeEnsurer,
+        ?PhpCodeEnsurerInterface $codeEnsurer = null,
         ?Command $command = null,
         ?InputInterface $input = null,
         ?BufferedOutput $output = null
@@ -44,7 +45,7 @@ final class PhpStanValidator implements ValidatorInterface
                 $this->command->getDefinition()
             );
         $this->output      = $output ?? new BufferedOutput();
-        $this->codeEnsurer = $codeEnsurer;
+        $this->codeEnsurer = $codeEnsurer ?? new PhpCodeEnsurer();
     }
 
     public function validate(Block $block): array
