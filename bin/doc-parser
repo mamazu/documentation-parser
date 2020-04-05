@@ -26,7 +26,8 @@ use Mamazu\DocumentationParser\Validator\XML\XMLValidValidator;
 $arguments = $argv;
 array_shift($arguments);
 
-$cli = new CLI(new FileList(), $arguments);
+$fileList = new FileList();
+$cli      = new CLI($fileList, $arguments);
 
 $application = new Application(
     [

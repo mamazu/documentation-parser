@@ -11,7 +11,7 @@ Every project needs documentation which is usually accompanied by code snippets 
 `vendor/bin/doc-parser <files to check>`
 
 ## How to configure it
-Configuration of the software is done in code. There is an extension point in the binary which can be used to inject any piece of code. You can run the application with the `-i` option and provide a file name and this file will be run before the validation is executed.
+Configuration of the software is done in code. There is an extension point in the binary which can be used to inject any piece of code. You can run the application with the `-i` option and provide **one** filename and this file will be run before the validation is executed.
 >Example: `bin/doc-parser -i my_extension_script.php docs` (order of arguments does not matter.)
 
 An example for adding more validators is given in the `tests/add_phpstan.php` file which also adds the validation rules of phpstan.
