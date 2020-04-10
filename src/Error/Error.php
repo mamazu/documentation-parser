@@ -52,7 +52,7 @@ class Error implements JsonSerializable
         return $this->type;
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return [
             'fileName'   => $this->getFileName(),

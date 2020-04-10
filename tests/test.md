@@ -29,7 +29,6 @@ $b = new Block('/tmp','test',1,'txt');
 And a little piece of valid yaml:
 ```yaml
 hello:
-ll
     i_am_groot: true
     colors: ['red', 'green', 'blue']
 ```
