@@ -15,7 +15,8 @@
         "ext-libxml": "*",
 
         "thecodingmachine/safe": "^0.1.16",
-        "nikic/php-parser": "^4.2"
+        "nikic/php-parser": "^4.2",
+        "symfony/yaml": "^4"
     },
     "require-dev": {
         "phpspec/phpspec": "^5.1|^6.0",

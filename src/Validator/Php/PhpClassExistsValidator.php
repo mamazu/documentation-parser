@@ -26,8 +26,11 @@ final class PhpClassExistsValidator implements ValidatorInterface
     /** @var PhpCodeEnsurerInterface */
     private $codeEnsurer;
 
-    public function __construct(callable $classExists, ?Parser $parser = null, ?PhpCodeEnsurerInterface $codeEnsurer = null)
-    {
+    public function __construct(
+        callable $classExists,
+        ?Parser $parser = null,
+        ?PhpCodeEnsurerInterface $codeEnsurer = null
+    ) {
         $this->parser = $parser ?? (new ParserFactory)->create(ParserFactory::PREFER_PHP7);
         $this->classExists = $classExists;
         $this->codeEnsurer = $codeEnsurer ?? new PhpCodeEnsurer();
@@ -59,12 +62,12 @@ final class PhpClassExistsValidator implements ValidatorInterface
     private function processSyntaxErrors(Block $block, string $message): array
     {
         $matches = [];
-        if(preg_match('/(.*) on line (\d+)/si', $message, $matches) === 0) {
+        if (preg_match('/(.*) on line (\d+)/si', $message, $matches) === 0) {
             return [];
         }
 
         $message = $matches[1];
-        $lineNumber = (int) $matches[2];
+        $lineNumber = (int)$matches[2];
 
         return [Error::errorFromBlock($block, $lineNumber, $message)];
 
@@ -75,7 +78,7 @@ final class PhpClassExistsValidator implements ValidatorInterface
         $errors = [];
         foreach ($useObject as $useStatement) {
             /** @var UseUse $useStatement */
-            $className = (string) $useStatement->name;
+            $className = (string)$useStatement->name;
             $classExistenceChecker = $this->classExists;
             $classExists = $classExistenceChecker($className);
             if (!$classExists) {

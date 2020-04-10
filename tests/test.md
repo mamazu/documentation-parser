@@ -25,3 +25,10 @@ $validator = new XMLValidValidator();
 $b = new Block('/tmp','test',1,'txt');
 (new Mamazu\DocumentationParser\Validator\CompositeValidator([]))->validate($b);
 ```
+
+And a little piece of valid yaml:
+```yaml
+hello:
+    i_am_groot: true
+    colors: ['red', 'green', 'blue']
+```

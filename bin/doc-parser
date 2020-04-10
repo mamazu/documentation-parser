@@ -22,6 +22,7 @@ use Mamazu\DocumentationParser\Parser\Parser\MarkdownParser;
 use Mamazu\DocumentationParser\Validator\CompositeValidator;
 use Mamazu\DocumentationParser\Validator\Php\PhpClassExistsValidator;
 use Mamazu\DocumentationParser\Validator\XML\XMLValidValidator;
+use Mamazu\DocumentationParser\Validator\Yaml\YamlValidator;
 
 $arguments = $argv;
 array_shift($arguments);
@@ -45,6 +46,8 @@ $application = new Application(
                 ]
             ),
         'xml' => new XMLValidValidator(),
+        'yml' => new YamlValidator(),
+        'yaml' => new YamlValidator(),
     ]
 );
 
