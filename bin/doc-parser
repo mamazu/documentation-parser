@@ -17,7 +17,7 @@ if(file_exists($autoloadPath)) {
 use Mamazu\DocumentationParser\Application;
 use Mamazu\DocumentationParser\CLI;
 use Mamazu\DocumentationParser\FileList;
-use Mamazu\DocumentationParser\Output\Formatter;
+use Mamazu\DocumentationParser\Output\TextFormatter;
 use Mamazu\DocumentationParser\Parser\Parser\MarkdownParser;
 use Mamazu\DocumentationParser\Validator\CompositeValidator;
 use Mamazu\DocumentationParser\Validator\Php\PhpClassExistsValidator;
@@ -29,6 +29,7 @@ array_shift($arguments);
 
 $fileList = new FileList();
 $cli      = new CLI($fileList, $arguments);
+$formatter = new TextFormatter();
 
 $application = new Application(
     [
@@ -58,7 +59,7 @@ if ($extensionFile !== null) {
 
 try {
     $output = $application->parse($cli->getFilesToParse());
-    echo (new Formatter())->format($output);
+    echo $formatter->format($output);
 } catch (Throwable $throwable) {
     fwrite(STDERR, $throwable->getMessage());
     echo $throwable->getTraceAsString();

@@ -35,7 +35,7 @@ class ValidatorAggregatorSpec extends ObjectBehavior
 
         $this->beConstructedWith(['php' => $validator1, 'python' => $validator2]);
 
-        $validator1->validate($block)->willReturn([new Error('hello.md', 0, 'Error')]);
+        $validator1->validate($block)->willReturn([new Error('hello.md', 0, 'Error',)]);
         $validator2->validate(Argument::any())->shouldNotBeCalled();
 
         $this->validate($block)->shouldHaveCount(1);

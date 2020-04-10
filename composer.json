@@ -13,6 +13,7 @@
         "php": "^7.2",
         "ext-dom": "*",
         "ext-libxml": "*",
+        "ext-json": "*"
 
         "thecodingmachine/safe": "^0.1.16",
         "nikic/php-parser": "^4.2",

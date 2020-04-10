@@ -89,6 +89,6 @@ TXT
 
         $errors = $this->validate(new Block('abc', 'test', 1, 'php'));
         $errors->shouldHaveCount(1);
-        $errors[0]->shouldBeLike(new Error('abc', 11, '[php] Error'));
+        $errors[0]->shouldBeLike(new Error('abc', 11, 'Error', 'php'));
     }
 }

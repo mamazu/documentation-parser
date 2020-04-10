@@ -6,7 +6,7 @@ namespace spec\Mamazu\DocumentationParser\Output;
 use Mamazu\DocumentationParser\Error\Error;
 use PhpSpec\ObjectBehavior;
 
-class FormatterSpec extends ObjectBehavior
+class TextFormatterSpec extends ObjectBehavior
 {
     public function it_formats_the_an_error(): void
     {

@@ -46,7 +46,7 @@ class YamlValidatorSpec extends ObjectBehavior
 
         $result = $this->validate($block);
         $result->shouldHaveCount(1);
-        $result[0]->shouldBeLike(new Error('test.md', 20, '[yaml] Invalid YAML at line 10'));
+        $result[0]->shouldBeLike(new Error('test.md', 20, 'Invalid YAML at line 10', 'yaml'));
     }
 
     public function it_adds_an_error_if_the_whole_document_is_invalid(
@@ -64,6 +64,6 @@ class YamlValidatorSpec extends ObjectBehavior
 
         $result = $this->validate($block);
         $result->shouldHaveCount(1);
-        $result[0]->shouldBeLike(new Error('test.md', 10, '[yaml] Invalid YAML'));
+        $result[0]->shouldBeLike(new Error('test.md', 10, 'Invalid YAML', 'yaml'));
     }
 }

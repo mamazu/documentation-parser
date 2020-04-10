@@ -6,15 +6,14 @@ namespace Mamazu\DocumentationParser\Output;
 
 use Mamazu\DocumentationParser\Error\Error;
 
-class Formatter
+class TextFormatter implements FormatterInterface
 {
     public function format(array $output): string
     {
-
         return implode(
             "\n",
             array_map(
-                function(Error $error) {
+                static function(Error $error) {
                     return $error->getFileName().':'.$error->getLineNumber().' ---- '.$error->getMessage();
                 },
                 $output
