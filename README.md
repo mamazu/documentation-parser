@@ -31,4 +31,5 @@ An example for adding more validators is given in the `tests/add_phpstan.php` fi
     * PhpStanValidator (optional): Validates the code with phpstan
 * XML:
     * XMLValidator: Checks if the document contains valid XML
-
+* YAML / YML:
+    * YamlValidator: Checks if the document contains valid Yaml
