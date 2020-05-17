@@ -52,9 +52,8 @@ $application = new Application(
     ]
 );
 
-$extensionFile = $cli->getIncludeFile();
-if ($extensionFile !== null) {
-    include $extensionFile;
+foreach ($cli->getIncludePaths() as $includePath) {
+    include $includePath;
 }
 
 try {
