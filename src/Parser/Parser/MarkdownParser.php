@@ -17,6 +17,7 @@ class MarkdownParser implements ParserInterface
     public function parse(string $fileName): array
     {
         $lines = \Safe\file($fileName, FILE_IGNORE_NEW_LINES);
+
         return array_merge(
             $this->parseCodeBlocks($fileName, $lines),
             $this->parseBlockTags($fileName, $lines)
@@ -30,8 +31,8 @@ class MarkdownParser implements ParserInterface
      * echo Hello World
      * ```
      *
-     * @param string $fileName
-     * @param string[]  $lines
+     * @param string   $fileName
+     * @param string[] $lines
      *
      * @return Block[]
      */
@@ -44,17 +45,27 @@ class MarkdownParser implements ParserInterface
         $type = '';
         $content = '';
         foreach ($lines as $lineNumber => $lineContent) {
-            if (strpos($lineContent, '```') === 0) {
+            $patternPosition = strpos($lineContent, '```');
+            if ($patternPosition === 0) {
                 if ($beginLine === null) {
                     $content = '';
                     $type = substr($lineContent, 3);
                     $beginLine = $lineNumber;
-                } else if (is_int($beginLine)) {
+                } elseif (is_int($beginLine)) {
                     $blocks[] = new Block($fileName, trim($content), $beginLine + 1, $type);
                     $beginLine = null;
                 } else {
                     throw new \InvalidArgumentException('The line numbers have to be an int or null');
                 }
+            } elseif (is_int($patternPosition)) {
+                trigger_error(
+                    sprintf(
+                        'Invalid format (%s:%d). The line needs to start with ``` in order to be a code block. SKIPPING',
+                        $fileName,
+                        $lineNumber + 1
+                    ),
+                    E_USER_NOTICE
+                );
             } else {
                 $content .= $lineContent."\n";
             }
@@ -68,13 +79,25 @@ class MarkdownParser implements ParserInterface
      *
      * <code lang="bash">echo Hello World</code>
      *
-     * @param string $fileName
-     * @param string[]  $lines
+     * @param string   $fileName
+     * @param string[] $lines
      *
      * @return Block[]
      */
     public function parseBlockTags(string $fileName, array $lines): array
     {
-        return [];
+        $blocks = [];
+        foreach ($lines as $lineNumber => $lineContent) {
+            $matches = [];
+            $matchCount = (int)preg_match_all('/<code lang="([^"]+)">(.*?)<\/code>/i', $lineContent, $matches);
+
+            for ($i = 0; $i < $matchCount; $i++) {
+                /** @var string[] $match */
+                $match = array_column($matches, $i);
+                $blocks[] = new Block($fileName, $match[2], $lineNumber + 1, $match[1]);
+            }
+        }
+
+        return $blocks;
     }
 }

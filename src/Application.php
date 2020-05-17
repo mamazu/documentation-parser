@@ -74,6 +74,7 @@ class Application
         $type = $block->getType();
 
         if(!array_key_exists($type, $this->validator)) {
+            trigger_error('No validator defined for type "'. $type. '"', E_USER_NOTICE);
             return [];
         }
 

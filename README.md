@@ -18,7 +18,7 @@ An example for adding more validators is given in the `tests/extensions/add_phps
 
 You can also configure it to use a directory: `bin/doc-parser -i <extension-dir> docs` and all php files in this directory will be included and executed.
 
-<code lang="bash">echo "Hello world"</code>
+In bash you can do: <code lang="bash">echo "Hello world"</code> and in php the same code would look like this: <code lang="php">echo "Hello World";</code>
 
 ### Parsers
 * Markdown parser: Parses markdown and **only** extracts the block comments like this:
