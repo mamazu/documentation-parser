@@ -17,7 +17,8 @@
 
         "thecodingmachine/safe": "^0.1.16",
         "nikic/php-parser": "^4.2",
-        "symfony/yaml": "^4"
+        "symfony/yaml": "^4",
+        "gregwar/rst": "dev-line-numbers"
     },
     "require-dev": {
         "phpspec/phpspec": "^5.1|^6.0",
@@ -43,5 +44,11 @@
             "vendor/bin/phpstan analyse"
         ]
     },
-    "bin": [ "bin/doc-parser" ]
+    "bin": [ "bin/doc-parser" ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/mamazu/RST/"
+        }
+    ]
 }
