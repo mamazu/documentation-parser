@@ -25,6 +25,7 @@ You can also configure it to use a directory: `bin/doc-parser -i <extension-dir>
 >echo "ABC";
 >
 >\```
+* RST parser: Parser that parses mark down. This is a popular language for documentation appearently.
 
 ### Validators
 * CompositeValidator: Validates all of its children passed into the constructor
