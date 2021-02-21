@@ -3,23 +3,21 @@ declare(strict_types=1);
 
 namespace Mamazu\DocumentationParser\Validator\Php;
 
+use _HumbugBoxfac515c46e83\Symfony\Component\Console\Input\ArrayInput;
 use Mamazu\DocumentationParser\Error\Error;
 use Mamazu\DocumentationParser\Parser\Block;
 use Mamazu\DocumentationParser\Utils\PhpCodeEnsurer;
 use Mamazu\DocumentationParser\Utils\PhpCodeEnsurerInterface;
 use Mamazu\DocumentationParser\Validator\ValidatorInterface;
 use PHPStan\Command\AnalyseCommand;
-use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\ArrayInput;
-use Symfony\Component\Console\Input\InputDefinition;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\BufferedOutput;
+use _HumbugBoxfac515c46e83\Symfony\Component\Console\Input\InputInterface;
+use _HumbugBoxfac515c46e83\Symfony\Component\Console\Output\BufferedOutput;
 
 final class PhpStanValidator implements ValidatorInterface
 {
     private const FILE_PATH = '/tmp/documentation-parser/cache.php';
 
-    /** @var Command */
+    /** @var AnalyseCommand */
     private $command;
 
     /** @var InputInterface */
@@ -33,12 +31,11 @@ final class PhpStanValidator implements ValidatorInterface
 
     public function __construct(
         ?PhpCodeEnsurerInterface $codeEnsurer = null,
-        ?Command $command = null,
+        ?AnalyseCommand $command = null,
         ?InputInterface $input = null,
         ?BufferedOutput $output = null
     ) {
-        $this->command     = $command ?? new AnalyseCommand([]); /** @phpstan-ignore-line */
-        /** @var InputDefinition $definition */
+        $this->command     = $command ?? new AnalyseCommand([]);
         $definition = $this->command->getDefinition();
 
         $this->input       = $input ?? new ArrayInput(

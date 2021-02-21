@@ -3,25 +3,26 @@ declare(strict_types=1);
 
 namespace spec\Mamazu\DocumentationParser\Validator\Php;
 
+use _HumbugBoxfac515c46e83\Symfony\Component\Console\Input\ArrayInput;
+use _HumbugBoxfac515c46e83\Symfony\Component\Console\Input\InputInterface;
+use _HumbugBoxfac515c46e83\Symfony\Component\Console\Output\BufferedOutput;
 use Mamazu\DocumentationParser\Error\Error;
 use Mamazu\DocumentationParser\Parser\Block;
 use Mamazu\DocumentationParser\Utils\PhpCodeEnsurerInterface;
 use Mamazu\DocumentationParser\Validator\ValidatorInterface;
 use PhpSpec\ObjectBehavior;
+use PHPStan\Command\AnalyseCommand;
 use Prophecy\Argument;
-use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\ArrayInput;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\BufferedOutput;
 
 final class PhpStanValidatorSpec extends ObjectBehavior
 {
     public function let(
         PhpCodeEnsurerInterface $codeEnsurer,
-        Command $command,
+        AnalyseCommand $command,
         InputInterface $input,
         BufferedOutput $output
     ): void {
+        $command->getDefinition()->willReturn((new AnalyseCommand([]))->getDefinition());
         $this->beConstructedWith($codeEnsurer, $command, $input, $output);
     }
 
@@ -32,11 +33,12 @@ final class PhpStanValidatorSpec extends ObjectBehavior
 
     public function it_works_with_default_parameters(
         PhpCodeEnsurerInterface $codeEnsurer,
-        Command $command,
+        AnalyseCommand $command,
         BufferedOutput $output
     ): void {
         $this->beConstructedWith($codeEnsurer, $command, null, $output);
 
+        $command->run(Argument::type(ArrayInput::class), $output)->shouldBeCalled();
         $output->fetch()->shouldBeCalled()->willReturn(
             <<<TXT
 Configuration file used
@@ -50,7 +52,7 @@ TXT
 
     public function it_validates_a_block_with_php_code(
         PhpCodeEnsurerInterface $codeEnsurer,
-        Command $command,
+        AnalyseCommand $command,
         InputInterface $input,
         BufferedOutput $output
     ): void {
@@ -71,7 +73,7 @@ TXT
 
     public function it_validates_a_block_with_errors(
         PhpCodeEnsurerInterface $codeEnsurer,
-        Command $command,
+        AnalyseCommand $command,
         InputInterface $input,
         BufferedOutput $output
     ): void {
