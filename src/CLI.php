@@ -16,6 +16,9 @@ class CLI
     /** @var FileList */
     private $filesToParse;
 
+    /**
+     * @param array<string> $parameter
+     */
     public function __construct(FileList $fileList, array $parameter)
     {
         $this->filesToParse = $fileList;
@@ -38,7 +41,7 @@ class CLI
     }
 
     /**
-     * @return string[]
+     * @return array<string>
      */
     public function getIncludePaths(): array
     {

@@ -52,6 +52,7 @@ class Error implements JsonSerializable
         return $this->type;
     }
 
+    /** @return array<string, string|int|null> */
     public function jsonSerialize(): array
     {
         return [

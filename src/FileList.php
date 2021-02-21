@@ -23,17 +23,19 @@ class FileList
     {
         $this->files = array_values(array_filter(
             $this->files,
-            static function (string $f) use ($filePath) {
+            static function (string $f) use ($filePath):bool {
                 return $f !== $filePath;
             }
         ));
     }
 
+    /** @return iterable<string> */
     public function getAllFiles(): iterable
     {
         yield from $this->files;
     }
 
+    /** @return array<string> */
     public function getAllValidFiles(): array
     {
         $validFiles = [];

@@ -11,6 +11,7 @@ use Mamazu\DocumentationParser\Validator\ValidatorInterface;
 use PHPStan\Command\AnalyseCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\ArrayInput;
+use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\BufferedOutput;
 
@@ -36,13 +37,16 @@ final class PhpStanValidator implements ValidatorInterface
         ?InputInterface $input = null,
         ?BufferedOutput $output = null
     ) {
-        $this->command     = $command ?? new AnalyseCommand();
+        $this->command     = $command ?? new AnalyseCommand([]); /** @phpstan-ignore-line */
+        /** @var InputDefinition $definition */
+        $definition = $this->command->getDefinition();
+
         $this->input       = $input ?? new ArrayInput(
                 [
                     'paths'          => [self::FILE_PATH],
                     '--error-format' => 'json',
                 ],
-                $this->command->getDefinition()
+                $definition
             );
         $this->output      = $output ?? new BufferedOutput();
         $this->codeEnsurer = $codeEnsurer ?? new PhpCodeEnsurer();
@@ -57,13 +61,14 @@ final class PhpStanValidator implements ValidatorInterface
         $parsed = $this->parseOutput($this->output->fetch());
 
         return array_map(
-            static function (array $error) use ($block) {
-                return Error::errorFromBlock($block, $error['line'] ?? 0, $error['message']);
+            static function (array $error) use ($block): Error {
+                return Error::errorFromBlock($block, (int) ($error['line'] ?? 0), $error['message']);
             },
             $parsed
         );
     }
 
+    /** @return array<array<string>> */
     private function parseOutput(string $output): array
     {
         $lines  = explode("\n", $output);

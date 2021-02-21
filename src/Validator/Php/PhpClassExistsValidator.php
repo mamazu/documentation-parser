@@ -59,6 +59,7 @@ final class PhpClassExistsValidator implements ValidatorInterface
         return $errors;
     }
 
+    /** @return array<Error> */
     private function processSyntaxErrors(Block $block, string $message): array
     {
         $matches = [];
@@ -73,6 +74,10 @@ final class PhpClassExistsValidator implements ValidatorInterface
 
     }
 
+    /**
+     * @param array<UseUse> $useObject
+     * @return array<Error>
+     */
     private function validateUseStatement(Block $block, array $useObject): array
     {
         $errors = [];

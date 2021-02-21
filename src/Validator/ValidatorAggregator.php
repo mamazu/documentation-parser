@@ -12,6 +12,7 @@ class ValidatorAggregator implements ValidatorInterface
     /** @var array<ValidatorInterface> */
     private $validators = [];
 
+    /** @param array<ValidatorInterface> $parsers */
     public function __construct(array $parsers = [])
     {
         foreach ($parsers as $parserName => $parser) {

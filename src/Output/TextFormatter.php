@@ -13,7 +13,7 @@ class TextFormatter implements FormatterInterface
         return implode(
             "\n",
             array_map(
-                static function(Error $error) {
+                static function(Error $error): string {
                     return $error->getFileName().':'.$error->getLineNumber().' ---- '.$error->getMessage();
                 },
                 $output

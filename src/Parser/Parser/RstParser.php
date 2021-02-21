@@ -30,7 +30,7 @@ class RstParser implements ParserInterface
 
         /** @var CodeNode[] $codeNodes */
         $codeNodes = $parsedOutput->getNodes(
-            static function (Node $node) { return $node instanceof CodeNode; }
+            static function (Node $node): bool { return $node instanceof CodeNode; }
         );
 
         $blocks = [];

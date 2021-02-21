@@ -15,6 +15,7 @@ final class CompositeValidator implements ValidatorInterface
     /** @var bool */
     private $continueValidationOnFailure;
 
+    /** @param array<ValidatorInterface> $validators */
     public function __construct(array $validators, bool $continueValidationOnFailure = false)
     {
         $this->validators = $validators;

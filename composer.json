@@ -22,11 +22,11 @@
     },
     "require-dev": {
         "phpspec/phpspec": "^5.1|^6.0",
-        "phpstan/phpstan": "^0.11.13",
-        "phpstan/phpstan-strict-rules": "^0.11.1",
-        "phpstan/phpstan-webmozart-assert": "^0.11.2",
         "mikey179/vfsstream": "^1.6",
-        "friends-of-phpspec/phpspec-code-coverage": "^4.3"
+        "friends-of-phpspec/phpspec-code-coverage": "^4.3",
+        "phpstan/phpstan": "^0.12.78",
+        "phpstan/phpstan-strict-rules": "^0.12.9",
+        "phpstan/phpstan-webmozart-assert": "^0.12.12"
     },
     "autoload": {
         "psr-4": {

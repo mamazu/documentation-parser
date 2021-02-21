@@ -10,6 +10,7 @@ class ParserAggregator implements ParserInterface
     /** @var array<ParserInterface> */
     private $parsers = [];
 
+    /** @param array<ParserInterface> $parsers */
     public function __construct(array $parsers = []) {
         foreach($parsers as $parserName => $parser) {
             $this->addParser($parserName, $parser);

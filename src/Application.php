@@ -17,17 +17,23 @@ class Application
     /** @var array<ValidatorInterface> */
     private $validator;
 
+    /**
+     *  @param array<ParserInterface> $parser
+     *  @param array<ValidatorInterface> $validator
+     */
     public function __construct(array $parser, array $validator)
     {
         $this->parser = $parser;
         $this->validator = $validator;
     }
 
+    /** @return array<ParserInterface> */
     public function getParser(): array
     {
         return $this->parser;
     }
 
+    /** @return array<ValidatorInterface> */
     public function &getValidator(): array
     {
         return $this->validator;
@@ -50,6 +56,7 @@ class Application
         return $validationErrors;
     }
 
+    /** @return array<Block> */
     private function getDocumentationBlocks(string $fileName): array
     {
         foreach ($this->parser as $parser) {
