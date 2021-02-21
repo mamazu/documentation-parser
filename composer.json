@@ -14,7 +14,6 @@
         "ext-dom": "*",
         "ext-libxml": "*",
         "ext-json": "*",
-
         "thecodingmachine/safe": "^0.1.16",
         "nikic/php-parser": "^4.2",
         "symfony/yaml": "^4",
@@ -23,7 +22,6 @@
     "require-dev": {
         "phpspec/phpspec": "^5.1|^6.0",
         "mikey179/vfsstream": "^1.6",
-        "friends-of-phpspec/phpspec-code-coverage": "^4.3",
         "phpstan/phpstan": "^0.12.78",
         "phpstan/phpstan-strict-rules": "^0.12.9",
         "phpstan/phpstan-webmozart-assert": "^0.12.12"
@@ -44,5 +42,7 @@
             "vendor/bin/phpstan analyse"
         ]
     },
-    "bin": [ "bin/doc-parser" ]
+    "bin": [
+        "bin/doc-parser"
+    ]
 }
