@@ -28,7 +28,7 @@ class Application
         return $this->parser;
     }
 
-    public function getValidator(): array
+    public function &getValidator(): array
     {
         return $this->validator;
     }

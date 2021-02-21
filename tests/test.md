@@ -32,3 +32,19 @@ hello:
     i_am_groot: true
     colors: ['red', 'green', 'blue']
 ```
+
+And some bash:
+```bash
+if [ -z$HELLO ];
+then
+    echo "Hello"
+fi
+```
+
+And some shell script:
+```sh
+if [-z$HELLO];
+then
+    echo "Hello"
+fi
+```
