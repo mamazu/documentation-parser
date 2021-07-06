@@ -40,6 +40,8 @@ jobs:
             -   name: Run code checks
                 run: composer run-script analyse
 
-            -   name: Run example scripts
-                run: bin/doc-parser tests/test.md; \
-                    bin/doc-parser tests/test.rst
+            -   name: Run example script (markdown)
+                run: bin/doc-parser tests/test.md;
+
+            -   name: Run example script (rst)
+                run: bin/doc-parser tests/test.rst

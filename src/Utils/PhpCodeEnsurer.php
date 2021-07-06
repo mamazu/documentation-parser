@@ -24,7 +24,7 @@ final class PhpCodeEnsurer implements PhpCodeEnsurerInterface
         return $sourceCode;
     }
 
-    private function createDirectory(string $dirname): void
+    public function createDirectory(string $dirname): void
     {
         if (!mkdir($dirname, 0777, true) && !is_dir($dirname)) {
             throw new \InvalidArgumentException(sprintf('Directory "%s" was not created', $dirname));

@@ -12,6 +12,6 @@ final class JsonFormatter implements FormatterInterface
             return '';
         }
 
-        return \Safe\json_encode($output, JSON_PRETTY_PRINT);
+        return \json_encode($output, JSON_PRETTY_PRINT);
     }
 }

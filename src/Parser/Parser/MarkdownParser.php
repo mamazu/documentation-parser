@@ -15,7 +15,7 @@ class MarkdownParser implements ParserInterface
 
     public function parse(string $fileName): array
     {
-        $lines = \Safe\file($fileName, FILE_IGNORE_NEW_LINES);
+        $lines = \file($fileName, FILE_IGNORE_NEW_LINES);
         $blocks = [];
 
         /** @var null|int $beginLine */

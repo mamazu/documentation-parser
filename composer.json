@@ -14,7 +14,6 @@
         "ext-dom": "*",
         "ext-libxml": "*",
         "ext-json": "*",
-        "thecodingmachine/safe": "^0.1.16",
         "nikic/php-parser": "^4.2",
         "symfony/yaml": "^4",
         "mamazu/rst": "^2.0"

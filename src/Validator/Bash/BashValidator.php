@@ -5,6 +5,7 @@ namespace Mamazu\DocumentationParser\Validator\Bash;
 
 use Mamazu\DocumentationParser\Error\Error;
 use Mamazu\DocumentationParser\Parser\Block;
+use Mamazu\DocumentationParser\Utils\PhpCodeEnsurerInterface;
 use Mamazu\DocumentationParser\Validator\ValidatorInterface;
 
 class BashValidator implements ValidatorInterface {
@@ -13,15 +14,20 @@ class BashValidator implements ValidatorInterface {
     /** @var string */
     private $pathToExecutor;
 
-    public function __construct(string $pathToExecutor)
+    /** @var PhpCodeEnsurerInterface */
+    private $fileSystem;
+
+    public function __construct(string $pathToExecutor, PhpCodeEnsurerInterface $fileSystem)
     {
         $this->pathToExecutor = $pathToExecutor;
+        $this->fileSystem = $fileSystem;
     }
 
     public function validate(Block $block): array
     {
-        @mkdir(dirname(self::FILE_PATH), 0777, true);
+        $this->fileSystem->createDirectory(dirname(self::FILE_PATH));
         file_put_contents(self::FILE_PATH, $block->getContent());
+
         $output = [];
         exec($this->pathToExecutor.' -n '.self::FILE_PATH.' 2>&1', $output);
 
