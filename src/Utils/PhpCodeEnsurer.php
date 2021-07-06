@@ -3,16 +3,13 @@ declare(strict_types=1);
 
 namespace Mamazu\DocumentationParser\Utils;
 
-
-use InvalidArgumentException;
-
 final class PhpCodeEnsurer implements PhpCodeEnsurerInterface
 {
     public function putPhpCodeToFile(string $sourceCode, string $fileName): void
     {
         $dirname = dirname($fileName);
-        if(!@mkdir($dirname, 0777, true) && !is_dir($dirname)) {
-            throw new InvalidArgumentException('Could not create directory');
+        if (!file_exists($dirname)) {
+            $this->createDirectory($dirname);
         }
         file_put_contents($fileName, $this->getPHPCode($sourceCode));
     }
@@ -25,5 +22,12 @@ final class PhpCodeEnsurer implements PhpCodeEnsurerInterface
         }
 
         return $sourceCode;
+    }
+
+    private function createDirectory(string $dirname): void
+    {
+        if (!mkdir($dirname, 0777, true) && !is_dir($dirname)) {
+            throw new \InvalidArgumentException(sprintf('Directory "%s" was not created', $dirname));
+        }
     }
 }
