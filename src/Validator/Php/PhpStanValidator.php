@@ -3,49 +3,22 @@ declare(strict_types=1);
 
 namespace Mamazu\DocumentationParser\Validator\Php;
 
-use _HumbugBoxfac515c46e83\Symfony\Component\Console\Input\ArrayInput;
 use Mamazu\DocumentationParser\Error\Error;
 use Mamazu\DocumentationParser\Parser\Block;
 use Mamazu\DocumentationParser\Utils\PhpCodeEnsurer;
 use Mamazu\DocumentationParser\Utils\PhpCodeEnsurerInterface;
 use Mamazu\DocumentationParser\Validator\ValidatorInterface;
-use PHPStan\Command\AnalyseCommand;
-use _HumbugBoxfac515c46e83\Symfony\Component\Console\Input\InputInterface;
-use _HumbugBoxfac515c46e83\Symfony\Component\Console\Output\BufferedOutput;
 
 final class PhpStanValidator implements ValidatorInterface
 {
     private const FILE_PATH = '/tmp/documentation-parser/cache.php';
 
-    /** @var AnalyseCommand */
-    private $command;
-
-    /** @var InputInterface */
-    private $input;
-
-    /** @var BufferedOutput */
-    private $output;
-
     /** @var PhpCodeEnsurerInterface */
     private $codeEnsurer;
 
     public function __construct(
-        ?PhpCodeEnsurerInterface $codeEnsurer = null,
-        ?AnalyseCommand $command = null,
-        ?InputInterface $input = null,
-        ?BufferedOutput $output = null
+        ?PhpCodeEnsurerInterface $codeEnsurer = null
     ) {
-        $this->command     = $command ?? new AnalyseCommand([]);
-        $definition = $this->command->getDefinition();
-
-        $this->input       = $input ?? new ArrayInput(
-                [
-                    'paths'          => [self::FILE_PATH],
-                    '--error-format' => 'json',
-                ],
-                $definition
-            );
-        $this->output      = $output ?? new BufferedOutput();
         $this->codeEnsurer = $codeEnsurer ?? new PhpCodeEnsurer();
     }
 
@@ -53,24 +26,27 @@ final class PhpStanValidator implements ValidatorInterface
     {
         $this->codeEnsurer->putPhpCodeToFile($block->getContent(), self::FILE_PATH);
 
-        $this->command->run($this->input, $this->output);
-
-        $parsed = $this->parseOutput($this->output->fetch());
+        $filePath = self::FILE_PATH;
+        $phpStanPath = __DIR__ . '/../../../vendor/bin/phpstan';
+        exec("$phpStanPath analyse $filePath --error-format=json --no-progress", $output);
 
         return array_map(
             static function (array $error) use ($block): Error {
                 return Error::errorFromBlock($block, (int) ($error['line'] ?? 0), $error['message']);
             },
-            $parsed
+            $this->parseOutput($output)
         );
     }
 
-    /** @return array<array<string>> */
-    private function parseOutput(string $output): array
+    /**
+     * @param array<string> $output
+     *
+     * @return array<array<string>>
+     */
+    private function parseOutput(array $output): array
     {
-        $lines  = explode("\n", $output);
         $result = [];
-        foreach ($lines as $line) {
+        foreach ($output as $line) {
             if (($line[0] ?? '') === '{') {
                 $result = json_decode($line, true);
             }
