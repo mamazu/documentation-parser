@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Mamazu\DocumentationParser\Output;
 
+use Webmozart\Assert\Assert;
+
 final class JsonFormatter implements FormatterInterface
 {
     /** @inheritDoc */
@@ -12,6 +14,9 @@ final class JsonFormatter implements FormatterInterface
             return '';
         }
 
-        return \json_encode($output, JSON_PRETTY_PRINT);
+        $json = \json_encode($output, JSON_PRETTY_PRINT);
+        Assert::string($json);
+
+        return $json;
     }
 }

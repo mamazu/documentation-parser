@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mamazu\DocumentationParser\Parser\Parser;
 
 use Mamazu\DocumentationParser\Parser\Block;
+use Webmozart\Assert\Assert;
 
 class MarkdownParser implements ParserInterface
 {
@@ -16,6 +17,7 @@ class MarkdownParser implements ParserInterface
     public function parse(string $fileName): array
     {
         $lines = \file($fileName, FILE_IGNORE_NEW_LINES);
+        Assert::isArray($lines, 'Could not read file: ' . $fileName);
         $blocks = [];
 
         /** @var null|int $beginLine */
@@ -28,11 +30,9 @@ class MarkdownParser implements ParserInterface
                     $content = '';
                     $type = substr($lineContent, 3);
                     $beginLine = $lineNumber;
-                } else if (is_int($beginLine)) {
+                } else {
                     $blocks[] = new Block($fileName, trim($content), $beginLine + 1, $type);
                     $beginLine = null;
-                } else {
-                    throw new \InvalidArgumentException('The line numbers have to be an int or null');
                 }
             } else {
                 $content .= $lineContent."\n";
