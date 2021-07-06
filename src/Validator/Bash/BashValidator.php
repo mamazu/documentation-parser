@@ -6,8 +6,8 @@ namespace Mamazu\DocumentationParser\Validator\Bash;
 use Mamazu\DocumentationParser\Error\Error;
 use Mamazu\DocumentationParser\Parser\Block;
 use Mamazu\DocumentationParser\Utils\PhpCodeEnsurer;
-use Mamazu\DocumentationParser\Utils\PhpCodeEnsurerInterface;
 use Mamazu\DocumentationParser\Validator\ValidatorInterface;
+use Symfony\Component\Filesystem\Filesystem;
 
 class BashValidator implements ValidatorInterface {
     private const FILE_PATH = '/tmp/documentation-parser/caches.sh';
@@ -15,19 +15,18 @@ class BashValidator implements ValidatorInterface {
     /** @var string */
     private $pathToExecutor;
 
-    /** @var PhpCodeEnsurerInterface */
+    /** @var Filesystem */
     private $fileSystem;
 
-    public function __construct(string $pathToExecutor, ?PhpCodeEnsurerInterface $fileSystem =null)
+    public function __construct(string $pathToExecutor, ?Filesystem $fileSystem =null)
     {
         $this->pathToExecutor = $pathToExecutor;
-        $this->fileSystem = $fileSystem ?? new PhpCodeEnsurer();
+        $this->fileSystem = $fileSystem ?? new Filesystem();
     }
 
     public function validate(Block $block): array
     {
-        $this->fileSystem->createDirectory(dirname(self::FILE_PATH));
-        file_put_contents(self::FILE_PATH, $block->getContent());
+        $this->fileSystem->dumpFile(self::FILE_PATH, $block->getContent());
 
         $output = [];
         exec($this->pathToExecutor.' -n '.self::FILE_PATH.' 2>&1', $output);

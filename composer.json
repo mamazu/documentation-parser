@@ -16,7 +16,8 @@
         "ext-json": "*",
         "nikic/php-parser": "^4.2",
         "symfony/yaml": "^4",
-        "mamazu/rst": "^2.0"
+        "mamazu/rst": "^2.0",
+        "symfony/filesystem": "^5.3"
     },
     "require-dev": {
         "phpspec/phpspec": "^5.1|^6.0",

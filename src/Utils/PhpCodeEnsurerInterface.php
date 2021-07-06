@@ -9,6 +9,4 @@ interface PhpCodeEnsurerInterface
     public function putPhpCodeToFile(string $sourceCode, string $fileName): void;
 
     public function getPHPCode(string $sourceCode): string;
-
-    public function createDirectory(string $dirname): void;
 }

@@ -3,15 +3,21 @@ declare(strict_types=1);
 
 namespace Mamazu\DocumentationParser\Utils;
 
+use Symfony\Component\Filesystem\Filesystem;
+
 final class PhpCodeEnsurer implements PhpCodeEnsurerInterface
 {
+    /** * @var Filesystem */
+    private $fileSystem;
+
+    public function __construct(?Filesystem $fileSystem = null)
+    {
+        $this->fileSystem = $fileSystem ?? new Filesystem();
+    }
+
     public function putPhpCodeToFile(string $sourceCode, string $fileName): void
     {
-        $dirname = dirname($fileName);
-        if (!file_exists($dirname)) {
-            $this->createDirectory($dirname);
-        }
-        file_put_contents($fileName, $this->getPHPCode($sourceCode));
+        $this->fileSystem->dumpFile($fileName, $this->getPHPCode($sourceCode));
     }
 
     public function getPHPCode(string $sourceCode): string
@@ -22,12 +28,5 @@ final class PhpCodeEnsurer implements PhpCodeEnsurerInterface
         }
 
         return $sourceCode;
-    }
-
-    public function createDirectory(string $dirname): void
-    {
-        if (!mkdir($dirname, 0777, true) && !is_dir($dirname)) {
-            throw new \InvalidArgumentException(sprintf('Directory "%s" was not created', $dirname));
-        }
     }
 }
