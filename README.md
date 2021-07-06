@@ -1,5 +1,5 @@
 # Documentation validator
-[![Build Status](https://travis-ci.org/mamazu/documentation-parser.svg?branch=master)](https://travis-ci.org/mamazu/documentation-parser)
+[![PHP Composer](https://github.com/mamazu/documentation-parser/actions/workflows/php.yml/badge.svg?branch=master)](https://github.com/mamazu/documentation-parser/actions/workflows/php.yml)
 
 Every project needs documentation which is usually accompanied by code snippets that show how a component is integrated. The problem is how does the project ensure that this code runs and that the code is up to date? Then this is your tool.
 
@@ -25,7 +25,7 @@ You can also configure it to use a directory: `bin/doc-parser -i <extension-dir>
 >echo "ABC";
 >
 >\```
-* RST parser: Parser that parses mark down. This is a popular language for documentation appearently.
+* RST parser: Parser that parses mark down. This is a popular language for the documentation apparently.
 
 ### Validators
 * CompositeValidator: Validates all of its children passed into the constructor
