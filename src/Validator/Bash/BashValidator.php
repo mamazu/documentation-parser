@@ -5,6 +5,7 @@ namespace Mamazu\DocumentationParser\Validator\Bash;
 
 use Mamazu\DocumentationParser\Error\Error;
 use Mamazu\DocumentationParser\Parser\Block;
+use Mamazu\DocumentationParser\Utils\PhpCodeEnsurer;
 use Mamazu\DocumentationParser\Utils\PhpCodeEnsurerInterface;
 use Mamazu\DocumentationParser\Validator\ValidatorInterface;
 
@@ -17,10 +18,10 @@ class BashValidator implements ValidatorInterface {
     /** @var PhpCodeEnsurerInterface */
     private $fileSystem;
 
-    public function __construct(string $pathToExecutor, PhpCodeEnsurerInterface $fileSystem)
+    public function __construct(string $pathToExecutor, ?PhpCodeEnsurerInterface $fileSystem =null)
     {
         $this->pathToExecutor = $pathToExecutor;
-        $this->fileSystem = $fileSystem;
+        $this->fileSystem = $fileSystem ?? new PhpCodeEnsurer();
     }
 
     public function validate(Block $block): array
