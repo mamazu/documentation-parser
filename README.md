@@ -25,7 +25,10 @@ You can also configure it to use a directory: `bin/doc-parser -i <extension-dir>
 >echo "ABC";
 >
 >\```
-* RST parser: Parser that parses mark down. This is a popular language for the documentation apparently.
+* RST parser: Parser that parses RST code blocks like this:
+> .. code-block:: php
+>
+>   echo "ABC";
 
 ### Validators
 * CompositeValidator: Validates all of its children passed into the constructor
