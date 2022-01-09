@@ -21,6 +21,7 @@ use Mamazu\DocumentationParser\FileList;
 use Mamazu\DocumentationParser\Output\TextFormatter;
 use Mamazu\DocumentationParser\Parser\Parser\MarkdownParser;
 use Mamazu\DocumentationParser\Parser\Parser\RstParser;
+use Mamazu\DocumentationParser\Parser\Parser\TexParser;
 use Mamazu\DocumentationParser\Validator\Bash\BashValidator;
 use Mamazu\DocumentationParser\Validator\CompositeValidator;
 use Mamazu\DocumentationParser\Validator\Php\PhpClassExistsValidator;
@@ -38,6 +39,7 @@ $application = new Application(
     [
         new MarkdownParser(),
         new RstParser(new Parser()),
+        new TexParser(),
     ],
     [
         'php' =>

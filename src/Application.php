@@ -65,6 +65,8 @@ class Application
             }
         }
 
+        trigger_error('There was no parser found for file '. $fileName, E_USER_WARNING);
+
         return [];
     }
 
