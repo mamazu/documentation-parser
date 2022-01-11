@@ -29,6 +29,12 @@ You can also configure it to use a directory: `bin/doc-parser -i <extension-dir>
 > .. code-block:: php
 >
 >   echo "ABC";
+* Latex parser:
+> \begin{lstlisting}[language=Python]
+>
+>    print("Hello World")
+>
+> \end{lstlisting}
 
 ### Validators
 * CompositeValidator: Validates all of its children passed into the constructor

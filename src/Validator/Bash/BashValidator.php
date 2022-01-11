@@ -5,7 +5,6 @@ namespace Mamazu\DocumentationParser\Validator\Bash;
 
 use Mamazu\DocumentationParser\Error\Error;
 use Mamazu\DocumentationParser\Parser\Block;
-use Mamazu\DocumentationParser\Utils\PhpCodeEnsurer;
 use Mamazu\DocumentationParser\Validator\ValidatorInterface;
 use Symfony\Component\Filesystem\Filesystem;
 
