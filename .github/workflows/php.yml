@@ -43,5 +43,8 @@ jobs:
             -   name: Run example script (markdown)
                 run: bin/doc-parser tests/test.md;
 
+            -   name: Run example script (tex)
+                run: bin/doc-parser tests/test.tex
+
             -   name: Run example script (rst)
                 run: bin/doc-parser tests/test.rst
