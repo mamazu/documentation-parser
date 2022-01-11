@@ -26,6 +26,9 @@ final class PhpClassExistsValidator implements ValidatorInterface
     /** @var PhpCodeEnsurerInterface */
     private $codeEnsurer;
 
+    /** @var false|string */
+    private $phpVersion;
+
     public function __construct(
         callable $classExists,
         ?Parser $parser = null,
@@ -34,11 +37,19 @@ final class PhpClassExistsValidator implements ValidatorInterface
         $this->parser = $parser ?? (new ParserFactory)->create(ParserFactory::PREFER_PHP7);
         $this->classExists = $classExists;
         $this->codeEnsurer = $codeEnsurer ?? new PhpCodeEnsurer();
+
+        $phpversion = phpversion();
+        Assert::string($phpversion, 'Could not get php version.');
+        $this->phpVersion = $phpversion;
     }
 
     /** {@inheritDoc} */
     public function validate(Block $block): array
     {
+        if ($this->phpVersion === "8") {
+            return [];
+        }
+
         $phpCode = $this->codeEnsurer->getPHPCode($block->getContent());
         try {
             $statements = $this->parser->parse($phpCode);
