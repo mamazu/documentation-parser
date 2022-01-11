@@ -3,6 +3,7 @@
 namespace Mamazu\DocumentationParser\Parser\Parser;
 
 use Mamazu\DocumentationParser\Parser\Block;
+use Webmozart\Assert\Assert;
 
 class TexParser implements ParserInterface {
     public function canParse(string $fileName): bool
@@ -13,6 +14,7 @@ class TexParser implements ParserInterface {
     public function parse(string $fileName): array
     {
         $fileContent = file($fileName, FILE_IGNORE_NEW_LINES);
+        Assert::isArray($fileContent, 'File filename could not be read: ' . $fileName);
 
         $codeBlockBegin = null;
         $type = '';
@@ -23,7 +25,7 @@ class TexParser implements ParserInterface {
             $matches = [];
 
             //trying to match the following pattern: \begin{lstlisting}[language=Python]
-            if (preg_match('/\\\\begin{lstlisting}(\\[language=(?<lang>\w+)\\])?\\s?(?<rest>[^\\\\]*)/', $line, $matches)) {
+            if (preg_match('/\\\\begin{lstlisting}\\[language=(?<lang>\w+)\\]\\s?(?<rest>[^\\\\]*)/', $line, $matches) > 0) {
                 $codeBlockBegin = $lineIndex;
                 $type = strtolower($matches['lang']);
                 $content = $matches['rest'];
@@ -31,7 +33,7 @@ class TexParser implements ParserInterface {
 
             if ($codeBlockBegin !== null && strpos($line, '\\end{lstlisting}') !== false) {
                 $blocks[] = new Block(
-                    $fileName, 
+                    $fileName,
                     rtrim($content),
                     $codeBlockBegin + 1,
                     $type
@@ -44,13 +46,13 @@ class TexParser implements ParserInterface {
                 $content .= $line . "\n";
             }
         }
-        
+
         if ($codeBlockBegin !== null) {
             throw new \InvalidArgumentException(
                 'You have an unopend codeblock in your code starting on line: '. ($codeBlockBegin + 1)
             );
         }
-        
+
         return $blocks;
     }
 }

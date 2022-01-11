@@ -4,6 +4,7 @@ namespace spec\Mamazu\DocumentationParser\Parser\Parser;
 
 use Mamazu\DocumentationParser\Parser\Parser\ParserInterface;
 use org\bovigo\vfs\vfsStream;
+use org\bovigo\vfs\vfsStreamDirectory;
 use PhpSpec\ObjectBehavior;
 
 class TexParserSpec extends ObjectBehavior
@@ -32,6 +33,21 @@ class TexParserSpec extends ObjectBehavior
         # Setting up the file
         $file = vfsStream::newFile('simple_file.tex');
         $file->setContent('\\begin{document}\\end{document}');
+        $this->workDir->addChild($file);
+
+        $this->parse('vfs://workDir/simple_file.tex')->shouldHaveCount(0);
+    }
+
+    public function it_skips_blocks_without_language(): void {
+        # Setting up the file
+        $file = vfsStream::newFile('simple_file.tex');
+        $file->setContent(<<<LATEX
+        \\begin{document}
+        \\begin{lstlisting}
+        print("Hello World")
+        \\end{lstlisting}
+        \\end{document}
+        LATEX);
         $this->workDir->addChild($file);
 
         $this->parse('vfs://workDir/simple_file.tex')->shouldHaveCount(0);
