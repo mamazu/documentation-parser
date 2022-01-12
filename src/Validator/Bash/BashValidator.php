@@ -11,11 +11,8 @@ use Symfony\Component\Filesystem\Filesystem;
 class BashValidator implements ValidatorInterface {
     private const FILE_PATH = '/tmp/documentation-parser/caches.sh';
 
-    /** @var string */
-    private $pathToExecutor;
-
-    /** @var Filesystem */
-    private $fileSystem;
+    private string $pathToExecutor;
+    private Filesystem $fileSystem;
 
     public function __construct(string $pathToExecutor, ?Filesystem $fileSystem =null)
     {

@@ -11,7 +11,7 @@ use PhpSpec\ObjectBehavior;
 class FileListSpec extends ObjectBehavior
 {
     /** @var vfsStreamDirectory */
-    private $workDir;
+    private vfsStreamDirectory $workDir;
 
     public function let(): void
     {

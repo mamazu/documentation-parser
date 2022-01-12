@@ -11,8 +11,7 @@ use Mamazu\DocumentationParser\Validator\ValidatorInterface;
 
 final class XMLValidValidator implements ValidatorInterface
 {
-
-        /** {@inheritDoc} */
+    /** {@inheritDoc} */
     public function validate(Block $block): array
     {
         libxml_use_internal_errors(true);

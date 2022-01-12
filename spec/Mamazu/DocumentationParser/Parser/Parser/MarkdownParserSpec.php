@@ -12,7 +12,7 @@ use org\bovigo\vfs\vfsStreamDirectory;
 class MarkdownParserSpec extends ObjectBehavior
 {
     /** @var vfsStreamDirectory */
-    private $workDir;
+    private vfsStreamDirectory $workDir;
 
     public function let(): void
     {

@@ -13,8 +13,7 @@ final class PhpStanValidator implements ValidatorInterface
 {
     private const FILE_PATH = '/tmp/documentation-parser/cache.php';
 
-    /** @var PhpCodeEnsurerInterface */
-    private $codeEnsurer;
+    private PhpCodeEnsurerInterface $codeEnsurer;
 
     public function __construct(
         ?PhpCodeEnsurerInterface $codeEnsurer = null

@@ -10,8 +10,7 @@ use Mamazu\DocumentationParser\Parser\Block;
 
 class RstParser implements ParserInterface
 {
-    /** @var Parser */
-    private $rstParser;
+    private Parser $rstParser;
 
     public function __construct(Parser $parser)
     {

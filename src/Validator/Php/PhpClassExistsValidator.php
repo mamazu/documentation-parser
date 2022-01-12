@@ -17,14 +17,12 @@ use function array_merge;
 
 final class PhpClassExistsValidator implements ValidatorInterface
 {
-    /** @var Parser */
-    private $parser;
+    private Parser $parser;
 
     /** @var callable */
     private $classExists;
 
-    /** @var PhpCodeEnsurerInterface */
-    private $codeEnsurer;
+    private PhpCodeEnsurerInterface $codeEnsurer;
 
     /** @var false|string */
     private $phpVersion;

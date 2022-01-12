@@ -9,17 +9,10 @@ use Mamazu\DocumentationParser\Parser\Block;
 
 class Error implements JsonSerializable
 {
-    /** @var string */
-    private $fileName;
-
-    /** @var int */
-    private $lineNumber;
-
-    /** @var string */
-    private $message;
-
-    /** @var string|null */
-    private $type;
+    private string $fileName;
+    private int $lineNumber;
+    private string $message;
+    private ?string $type;
 
     public function __construct(string $fileName, int $lineNumber, string $message, ?string $type = null)
     {

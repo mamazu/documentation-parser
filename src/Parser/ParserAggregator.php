@@ -8,7 +8,7 @@ use Mamazu\DocumentationParser\Parser\Parser\ParserInterface;
 class ParserAggregator implements ParserInterface
 {
     /** @var array<ParserInterface> */
-    private $parsers = [];
+    private array $parsers = [];
 
     /** @param array<ParserInterface> $parsers */
     public function __construct(array $parsers = []) {

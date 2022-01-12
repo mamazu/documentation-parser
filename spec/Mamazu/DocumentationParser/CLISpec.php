@@ -12,7 +12,7 @@ use PhpSpec\ObjectBehavior;
 class CLISpec extends ObjectBehavior
 {
     /** @var vfsStreamDirectory */
-    private $workDir;
+    private vfsStreamDirectory $workDir;
 
     public function let(): void
     {

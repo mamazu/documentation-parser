@@ -7,8 +7,7 @@ use Symfony\Component\Filesystem\Filesystem;
 
 final class PhpCodeEnsurer implements PhpCodeEnsurerInterface
 {
-    /** @var Filesystem */
-    private $fileSystem;
+    private Filesystem $fileSystem;
 
     public function __construct(?Filesystem $fileSystem = null)
     {

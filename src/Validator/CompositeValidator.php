@@ -10,10 +10,8 @@ use function array_push;
 final class CompositeValidator implements ValidatorInterface
 {
     /** @var array<ValidatorInterface> */
-    private $validators;
-
-    /** @var bool */
-    private $continueValidationOnFailure;
+    private array $validators;
+    private bool $continueValidationOnFailure;
 
     /** @param array<ValidatorInterface> $validators */
     public function __construct(array $validators, bool $continueValidationOnFailure = false)
