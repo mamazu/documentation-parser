@@ -47,6 +47,7 @@ $application = new Application(
                 [
                     new PHPClassExistsValidator(
                         static function (string $classOrInterface): bool {
+                            include_once getcwd().'/vendor/autoload.php';
                             return class_exists($classOrInterface) || interface_exists($classOrInterface);
                         }
                     ),
