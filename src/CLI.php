@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Mamazu\DocumentationParser;
@@ -10,51 +11,54 @@ use RegexIterator;
 
 class CLI
 {
-    private ?string $includePath = null;
-    private FileList $filesToParse;
+	private ?string $includePath = null;
 
-    /** @param array<string> $parameter */
-    public function __construct(FileList $fileList, array $parameter)
-    {
-        $this->filesToParse = $fileList;
-        $hasInclude = false;
-        foreach ($parameter as $p) {
-            if ($p === '-i') {
-                $hasInclude = true;
-            } elseif ($hasInclude) {
-                $this->includePath = $p;
-                $hasInclude = false;
-            } else {
-                $this->filesToParse->addFile($p);
-            }
-        }
-    }
+	private FileList $filesToParse;
 
-    public function getFilesToParse(): FileList
-    {
-        return $this->filesToParse;
-    }
+	/**
+	 * @param array<string> $parameter
+	 */
+	public function __construct(FileList $fileList, array $parameter)
+	{
+		$this->filesToParse = $fileList;
+		$hasInclude = false;
+		foreach ($parameter as $p) {
+			if ($p === '-i') {
+				$hasInclude = true;
+			} elseif ($hasInclude) {
+				$this->includePath = $p;
+				$hasInclude = false;
+			} else {
+				$this->filesToParse->addFile($p);
+			}
+		}
+	}
 
-    /**
-     * @return array<string>
-     */
-    public function getIncludePaths(): array
-    {
-        if($this->includePath === null) {
-            return [];
-        }
+	public function getFilesToParse(): FileList
+	{
+		return $this->filesToParse;
+	}
 
-        if (is_file($this->includePath) && file_exists($this->includePath)) {
-            return [$this->includePath];
-        }
+	/**
+	 * @return array<string>
+	 */
+	public function getIncludePaths(): array
+	{
+		if ($this->includePath === null) {
+			return [];
+		}
 
-        if (is_dir($this->includePath)) {
-            $fileIterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($this->includePath));
-            $regex = new RegexIterator($fileIterator, '/^.+\.php$/i', RecursiveRegexIterator::GET_MATCH);
+		if (is_file($this->includePath) && file_exists($this->includePath)) {
+			return [$this->includePath];
+		}
 
-            return array_keys(iterator_to_array($regex));
-        }
+		if (is_dir($this->includePath)) {
+			$fileIterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($this->includePath));
+			$regex = new RegexIterator($fileIterator, '/^.+\.php$/i', RecursiveRegexIterator::GET_MATCH);
 
-        return [];
-    }
+			return array_keys(iterator_to_array($regex));
+		}
+
+		return [];
+	}
 }

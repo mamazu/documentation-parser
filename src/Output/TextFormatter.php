@@ -8,16 +8,16 @@ use Mamazu\DocumentationParser\Error\Error;
 
 class TextFormatter implements FormatterInterface
 {
-    public function format(array $output): string
-    {
-        return implode(
-            "\n",
-            array_map(
-                static function(Error $error): string {
-                    return $error->getFileName().':'.$error->getLineNumber().' ---- '.$error->getMessage();
-                },
-                $output
-            )
-        );
-    }
+	public function format(array $output): string
+	{
+		return implode(
+			"\n",
+			array_map(
+				static function (Error $error): string {
+					return $error->getFileName() . ':' . $error->getLineNumber() . ' ---- ' . $error->getMessage();
+				},
+				$output
+			)
+		);
+	}
 }

@@ -37,6 +37,9 @@ jobs:
             -   name: Install dependencies
                 run: composer install --prefer-dist --no-progress
 
+            -   name: Install dependencies
+                run: vendor/bin/ecs
+
             -   name: Run code checks
                 run: composer run-script analyse
 
