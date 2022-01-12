@@ -24,7 +24,8 @@
         "mikey179/vfsstream": "^1.6",
         "phpstan/phpstan": "^0.12.78",
         "phpstan/phpstan-strict-rules": "^0.12.9",
-        "phpstan/phpstan-webmozart-assert": "^0.12.12"
+        "phpstan/phpstan-webmozart-assert": "^0.12.12",
+        "symplify/easy-coding-standard": "^10.0"
     },
     "autoload": {
         "psr-4": {
