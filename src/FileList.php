@@ -9,7 +9,7 @@ use InvalidArgumentException;
 class FileList
 {
     /** @var array<string> */
-    private $files = [];
+    private array $files = [];
 
     public function addFile(string $filePath): void
     {

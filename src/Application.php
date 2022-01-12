@@ -12,10 +12,10 @@ use Mamazu\DocumentationParser\Validator\ValidatorInterface;
 class Application
 {
     /** @var array<ParserInterface> */
-    private $parser;
+    private array $parser;
 
     /** @var array<ValidatorInterface> */
-    private $validator;
+    private array $validator;
 
     /**
      *  @param array<ParserInterface> $parser

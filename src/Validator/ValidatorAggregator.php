@@ -10,7 +10,7 @@ use Mamazu\DocumentationParser\Validator\ValidatorInterface;
 class ValidatorAggregator implements ValidatorInterface
 {
     /** @var array<ValidatorInterface> */
-    private $validators = [];
+    private array $validators = [];
 
     /** @param array<ValidatorInterface> $parsers */
     public function __construct(array $parsers = [])

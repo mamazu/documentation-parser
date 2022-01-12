@@ -10,15 +10,10 @@ use RegexIterator;
 
 class CLI
 {
-    /** @var string|null */
-    private $includePath;
+    private ?string $includePath = null;
+    private FileList $filesToParse;
 
-    /** @var FileList */
-    private $filesToParse;
-
-    /**
-     * @param array<string> $parameter
-     */
+    /** @param array<string> $parameter */
     public function __construct(FileList $fileList, array $parameter)
     {
         $this->filesToParse = $fileList;

@@ -10,7 +10,7 @@ use PhpSpec\ObjectBehavior;
 class TexParserSpec extends ObjectBehavior
 {
     /** @var vfsStreamDirectory */
-    public $workDir;
+    public vfsStreamDirectory $workDir;
 
     public function let(): void
     {

@@ -6,17 +6,10 @@ namespace Mamazu\DocumentationParser\Parser;
 
 class Block
 {
-    /** @var string */
-    private $fileName;
-
-    /** @var string */
-    private $content;
-
-    /** @var int */
-    private $relativeLineNumber;
-
-    /** @var string */
-    private $type;
+    private string $fileName;
+    private string $content;
+    private int $relativeLineNumber;
+    private string $type;
 
     public function __construct(string $fileName, string $content, int $relativeLineNumber, string $type)
     {

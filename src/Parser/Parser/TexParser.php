@@ -5,7 +5,8 @@ namespace Mamazu\DocumentationParser\Parser\Parser;
 use Mamazu\DocumentationParser\Parser\Block;
 use Webmozart\Assert\Assert;
 
-class TexParser implements ParserInterface {
+class TexParser implements ParserInterface
+{
     public function canParse(string $fileName): bool
     {
         return strtolower(substr($fileName, -3)) === 'tex';
