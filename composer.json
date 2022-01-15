@@ -15,7 +15,7 @@
         "ext-libxml": "*",
         "ext-json": "*",
         "nikic/php-parser": "^4.2",
-        "symfony/yaml": "^4",
+        "symfony/yaml": "^4|^5",
         "mamazu/rst": "^2.0",
         "symfony/filesystem": "^5.3"
     },
