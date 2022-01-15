@@ -14,6 +14,13 @@ echo 'Hallo';
 echo 2+2;
 ```
 
+Sometimes the YAML structure is a substructure of another thing.
+```yaml
+    # ... Testing 123
+    testing:
+        hello: ""
+```
+
 ```php
 <?php
 
