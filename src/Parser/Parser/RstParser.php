@@ -1,8 +1,9 @@
 <?php
 
 
-namespace Mamazu\DocumentationParser\Parser\Parser;
+namespace Mamazu\DocumetationParser\Parser\Parser;
 
+use Gregwar\RST\ErrorManager;
 use Gregwar\RST\Nodes\CodeNode;
 use Gregwar\RST\Nodes\Node;
 use Gregwar\RST\Parser;
@@ -24,7 +25,7 @@ class RstParser implements ParserInterface
 
 	public function parse(string $fileName): array
 	{
-		$this->rstParser->getEnvironment()->getErrorManager()->abortOnError(false);
+		$this->setErrorManager();
 		$parsedOutput = $this->rstParser->parseFile($fileName);
 
 		/** @var CodeNode[] $codeNodes */
@@ -49,5 +50,16 @@ class RstParser implements ParserInterface
 		}
 
 		return $blocks;
+	}
+
+	private function setErrorManager(): void
+	{
+		$errorManager = new class() extends ErrorManager {
+			public function error($message)
+			{
+			}
+		};
+
+		$this->rstParser->getEnvironment()->setErrorManager($errorManager);
 	}
 }
