@@ -82,4 +82,17 @@ YAML);
 
 		$this->validate($block)->shouldHaveCount(0);
 	}
+
+	public function it_validates_a_strangely_indented_block(Parser $parser, Block $block): void
+	{
+		$block->getFileName()->willReturn('readme.md');
+		$block->getRelativeLineNumber()->willReturn(10);
+		$block->getContent()->willReturn(<<<YAML
+	fixtures:
+testing: 1234
+YAML);
+
+		$this->shouldThrow(new \InvalidArgumentException('Expected indentation "\t" in file readme.md on line 11'))
+			->during('validate', [$block]);
+	}
 }

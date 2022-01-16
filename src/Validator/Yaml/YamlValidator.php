@@ -21,7 +21,7 @@ final class YamlValidator implements ValidatorInterface
 
 	public function validate(Block $block): array
 	{
-		$cleanedContent = $this->normalizeIndentation($block->getContent());
+		$cleanedContent = $this->normalizeIndentation($block);
 		try {
 			$this->parser->parse($cleanedContent);
 		} catch (ParseException $exception) {
@@ -33,15 +33,16 @@ final class YamlValidator implements ValidatorInterface
 		return [];
 	}
 
-	private function normalizeIndentation(string $content): string
+	private function normalizeIndentation(Block $block): string
 	{
-		$lineContent = explode("\n", $content);
-		$offset = 0;
+		$lineContent = explode("\n", $block->getContent());
+		$indendation = '';
 		foreach ($lineContent as $line) {
 			if ($line === '') {
 				continue;
 			}
 
+			$offset = 0;
 			while ($offset < strlen($line)) {
 				$char = $line[$offset];
 				if (! ctype_space($char)) {
@@ -49,15 +50,38 @@ final class YamlValidator implements ValidatorInterface
 				}
 				$offset++;
 			}
+			$indendation = substr($line, 0, $offset);
+
 			break;
 		}
 
-		return implode(
-			"\n",
-			array_map(
-				static fn (string $line): string => substr($line, $offset),
-				$lineContent
-			)
-		);
+		// Speed up if there is no indentation.
+		if ($indendation === '') {
+			return $block->getContent();
+		}
+
+		$result = '';
+		foreach ($lineContent as $lineIndex => $line) {
+			$count = 1;
+			if (strpos($line, $indendation) !== 0) {
+				$trueLineNumber = $block->getRelativeLineNumber() + $lineIndex;
+				throw new \InvalidArgumentException(
+					sprintf(
+						'Expected indentation "%s" in file %s on line %d',
+						$this->printIndentation($indendation),
+						$block->getFileName(),
+						$trueLineNumber
+					)
+				);
+			}
+			$result = str_replace($indendation, '', $line, $count) . PHP_EOL;
+		}
+
+		return $result;
+	}
+
+	private function printIndentation(string $indentation): string
+	{
+		return str_replace(["\t", ' '], ['\\t', '…'], $indentation);
 	}
 }
