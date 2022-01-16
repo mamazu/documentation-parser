@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace spec\Mamazu\DocumentationParser\Validator;
 
 use Mamazu\DocumentationParser\Error\Error;

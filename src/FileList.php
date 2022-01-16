@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Mamazu\DocumentationParser;
 
-use Exception;
 use InvalidArgumentException;
 
 class FileList

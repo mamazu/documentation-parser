@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace Mamazu\DocumentationParser\Validator;
 
-use Mamazu\DocumentationParser\Parser\Block;
 use function array_merge;
-use function array_push;
+use Mamazu\DocumentationParser\Parser\Block;
 
 final class CompositeValidator implements ValidatorInterface
 {

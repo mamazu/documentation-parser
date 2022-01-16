@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace spec\Mamazu\DocumentationParser;
 
-use Mamazu\DocumentationParser\CLI;
 use Mamazu\DocumentationParser\FileList;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;

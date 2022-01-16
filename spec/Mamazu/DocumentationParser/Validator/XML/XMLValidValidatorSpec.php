@@ -6,7 +6,6 @@ namespace spec\Mamazu\DocumentationParser\Validator\XML;
 
 use Mamazu\DocumentationParser\Parser\Block;
 use Mamazu\DocumentationParser\Validator\ValidatorInterface;
-use Mamazu\DocumentationParser\Validator\XML\XMLValidValidator;
 use PhpSpec\ObjectBehavior;
 
 class XMLValidValidatorSpec extends ObjectBehavior

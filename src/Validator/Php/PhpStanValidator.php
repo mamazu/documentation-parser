@@ -28,7 +28,7 @@ final class PhpStanValidator implements ValidatorInterface
 
 		$filePath = self::FILE_PATH;
 		$phpStanPath = __DIR__ . '/../../../vendor/bin/phpstan';
-		exec("$phpStanPath analyse $filePath --error-format=json --no-progress", $output);
+		exec("${phpStanPath} analyse ${filePath} --error-format=json --no-progress", $output);
 
 		return array_map(
 			static function (array $error) use ($block): Error {
