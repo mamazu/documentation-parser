@@ -41,9 +41,7 @@ final class PhpClassExistsValidator implements ValidatorInterface
 		$this->classExists = $classExists;
 		$this->codeEnsurer = $codeEnsurer ?? new PhpCodeEnsurer();
 
-		$phpversion = PHP_VERSION;
-		Assert::string($phpversion, 'Could not get php version.');
-		$this->phpVersion = $phpversion;
+		$this->phpVersion = PHP_VERSION;
 	}
 
 	public function validate(Block $block): array
@@ -55,7 +53,7 @@ final class PhpClassExistsValidator implements ValidatorInterface
 		$phpCode = $this->codeEnsurer->getPHPCode($block->getContent());
 		try {
 			$statements = $this->parser->parse($phpCode);
-			Assert::notNull($statements);
+			Assert::notNull($statements, 'The parsing of the php file failed.');
 		} catch (\Throwable $exception) {
 			return $this->processSyntaxErrors($block, $exception->getMessage());
 		}
