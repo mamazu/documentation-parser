@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace spec\Mamazu\DocumentationParser\Parser\Parser;
 
 use Mamazu\DocumentationParser\Parser\Parser\ParserInterface;

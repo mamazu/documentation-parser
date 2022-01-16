@@ -1,7 +1,8 @@
 <?php
 
+declare(strict_types=1);
 
-namespace Mamazu\DocumetationParser\Parser\Parser;
+namespace Mamazu\DocumentationParser\Parser\Parser;
 
 use Gregwar\RST\ErrorManager;
 use Gregwar\RST\Nodes\CodeNode;

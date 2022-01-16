@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mamazu\DocumentationParser\Validator\Php;
 
+use function array_merge;
 use Mamazu\DocumentationParser\Error\Error;
 use Mamazu\DocumentationParser\Parser\Block;
 use Mamazu\DocumentationParser\Utils\PhpCodeEnsurer;
@@ -14,7 +15,6 @@ use PhpParser\Node\Stmt\UseUse;
 use PhpParser\Parser;
 use PhpParser\ParserFactory;
 use Webmozart\Assert\Assert;
-use function array_merge;
 
 final class PhpClassExistsValidator implements ValidatorInterface
 {
@@ -41,14 +41,14 @@ final class PhpClassExistsValidator implements ValidatorInterface
 		$this->classExists = $classExists;
 		$this->codeEnsurer = $codeEnsurer ?? new PhpCodeEnsurer();
 
-		$phpversion = phpversion();
+		$phpversion = PHP_VERSION;
 		Assert::string($phpversion, 'Could not get php version.');
 		$this->phpVersion = $phpversion;
 	}
 
 	public function validate(Block $block): array
 	{
-		if ($this->phpVersion === "8") {
+		if ($this->phpVersion === '8') {
 			return [];
 		}
 

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace spec\Mamazu\DocumentationParser\Utils;
 
-use InvalidArgumentException;
 use Mamazu\DocumentationParser\Utils\PhpCodeEnsurerInterface;
 use PhpSpec\ObjectBehavior;
 use Symfony\Component\Filesystem\Exception\IOException;

@@ -41,6 +41,9 @@
         "analyse": [
             "vendor/bin/phpspec run",
             "vendor/bin/phpstan analyse"
+        ],
+        "fix": [
+            "vendor/bin/ecs --fix"
         ]
     },
     "bin": [
