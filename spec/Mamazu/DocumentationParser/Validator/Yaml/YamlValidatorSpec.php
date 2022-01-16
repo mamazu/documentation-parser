@@ -67,4 +67,19 @@ class YamlValidatorSpec extends ObjectBehavior
 		$result->shouldHaveCount(1);
 		$result[0]->shouldBeLike(new Error('test.md', 10, 'Invalid YAML', 'yaml'));
 	}
+
+	public function it_validates_indented_block(Parser $parser, Block $block): void
+	{
+		$block->getContent()->willReturn(<<<YAML
+    fixtures:
+        testing: 1234
+YAML);
+
+		$parser->parse(<<<YAML
+fixtures:
+    testing: 1234
+YAML);
+
+		$this->validate($block)->shouldHaveCount(0);
+	}
 }

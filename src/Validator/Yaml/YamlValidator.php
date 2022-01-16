@@ -21,8 +21,9 @@ final class YamlValidator implements ValidatorInterface
 
 	public function validate(Block $block): array
 	{
+		$cleanedContent = $this->cleanContent($block->getContent());
 		try {
-			$this->parser->parse($block->getContent());
+			$this->parser->parse($cleanedContent);
 		} catch (ParseException $exception) {
 			// If the entire document is invalid $exception->getParsedLine() will be -1 so we just set it to 0
 			$line = max(0, $exception->getParsedLine());
@@ -30,5 +31,33 @@ final class YamlValidator implements ValidatorInterface
 		}
 
 		return [];
+	}
+
+	private function cleanContent(string $content): string
+	{
+		$lineContent = explode("\n", $content);
+		$offset = 0;
+		foreach ($lineContent as $line) {
+			if ($line === '') {
+				continue;
+			}
+
+			while ($offset < strlen($line)) {
+				$char = $line[$offset];
+				if (! ctype_space($char)) {
+					break;
+				}
+				$offset++;
+			}
+			break;
+		}
+
+		return implode(
+			"\n",
+			array_map(
+				static fn (string $line): string => substr($line, $offset),
+				$lineContent
+			)
+		);
 	}
 }
