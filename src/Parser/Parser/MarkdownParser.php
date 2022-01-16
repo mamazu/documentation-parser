@@ -31,7 +31,7 @@ class MarkdownParser implements ParserInterface
 					$type = substr($lineContent, 3);
 					$beginLine = $lineNumber;
 				} else {
-					$blocks[] = new Block($fileName, trim($content), $beginLine + 1, $type);
+					$blocks[] = new Block($fileName, rtrim($content), $beginLine + 1, $type);
 					$beginLine = null;
 				}
 			} else {
