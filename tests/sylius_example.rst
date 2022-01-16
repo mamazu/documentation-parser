@@ -112,7 +112,7 @@ Remember to register ``App\Form\SupplierType`` for resource:
                 driver: doctrine/orm
                 classes:
                     model: App\Entity\Supplier
-       +            form: App\Form\Type\SupplierType
+  +                 form: App\Form\Type\SupplierType
 
 1. Restrict access to the entity for the respective channel administrator:
 --------------------------------------------------------------------------
@@ -263,7 +263,7 @@ After that, access to the resource should work properly with all restrictions.
 
 * Add method to the Suppliers grid:
 
-.. code-block:: yaml
+.. code-block:: diff
 
     sylius_grid:
         grids:

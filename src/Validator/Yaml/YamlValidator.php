@@ -21,7 +21,7 @@ final class YamlValidator implements ValidatorInterface
 
 	public function validate(Block $block): array
 	{
-		$cleanedContent = $this->cleanContent($block->getContent());
+		$cleanedContent = $this->normalizeIndentation($block->getContent());
 		try {
 			$this->parser->parse($cleanedContent);
 		} catch (ParseException $exception) {
@@ -33,7 +33,7 @@ final class YamlValidator implements ValidatorInterface
 		return [];
 	}
 
-	private function cleanContent(string $content): string
+	private function normalizeIndentation(string $content): string
 	{
 		$lineContent = explode("\n", $content);
 		$offset = 0;
