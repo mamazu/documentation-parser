@@ -56,7 +56,10 @@ class RstParser implements ParserInterface
 	private function setErrorManager(): void
 	{
 		$errorManager = new class() extends ErrorManager {
-			public function error($message)
+			/**
+			 * @param mixed $message
+			 */
+			public function error($message): void
 			{
 			}
 		};

@@ -40,9 +40,7 @@ class RstParserSpec extends ObjectBehavior
 		CodeNode $codeNode
 	): void {
 		$parser->getEnvironment()->willReturn($environment);
-		$environment->getErrorManager()->willReturn($errorManager);
-
-		$errorManager->abortOnError(false)->shouldBeCalled();
+		$environment->setErrorManager(Argument::any())->shouldBeCalled();
 
 		$parser->parseFile('documentation.rst')->shouldBeCalled()->willReturn($document);
 		$document->getNodes(Argument::type(\Closure::class))->willReturn([$codeNode]);
