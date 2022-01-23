@@ -23,7 +23,20 @@ final class PhpCodeEnsurer implements PhpCodeEnsurerInterface
 	public function getPHPCode(string $sourceCode): string
 	{
 		$sourceCode = trim($sourceCode);
-		if (strpos($sourceCode, '<?php') === false) {
+
+		if (
+			stripos($sourceCode, 'public') === 0 ||
+			stripos($sourceCode, 'private') === 0 ||
+			stripos($sourceCode, 'protected') === 0
+		) {
+			$sourceCode = <<<PHP
+namespace Mamazu\DocumentationParser;
+class AnonymousClassThatWeNeedForItToBeValidPhp { ${sourceCode} }
+PHP;
+		}
+
+		// Adding the php stag in front
+		if (strpos($sourceCode, '<?php') !== 0) {
 			return '<?php ' . $sourceCode;
 		}
 

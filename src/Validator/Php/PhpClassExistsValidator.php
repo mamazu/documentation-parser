@@ -40,16 +40,10 @@ final class PhpClassExistsValidator implements ValidatorInterface
 		$this->parser = $parser ?? (new ParserFactory())->create(ParserFactory::PREFER_PHP7);
 		$this->classExists = $classExists;
 		$this->codeEnsurer = $codeEnsurer ?? new PhpCodeEnsurer();
-
-		$this->phpVersion = PHP_VERSION;
 	}
 
 	public function validate(Block $block): array
 	{
-		if ($this->phpVersion === '8') {
-			return [];
-		}
-
 		$phpCode = $this->codeEnsurer->getPHPCode($block->getContent());
 		try {
 			$statements = $this->parser->parse($phpCode);
