@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Mamazu\DocumentationParser;
 
-use InvalidArgumentException;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
 
 class FileList
 {
@@ -16,7 +17,9 @@ class FileList
 	public function addFile(string $filePath): void
 	{
 		if (is_dir($filePath)) {
-			throw new InvalidArgumentException('Directories are not implemented yet. Please specify the files individually.');
+			$this->addDirectory($filePath);
+
+			return;
 		}
 		$this->files[] = $filePath;
 	}
@@ -54,5 +57,18 @@ class FileList
 		}
 
 		return $validFiles;
+	}
+
+	private function addDirectory(string $directory): void
+	{
+		$directoryIterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($directory));
+		foreach ($directoryIterator as $file) {
+			/** @var \SplFileInfo $file */
+			if ($file->isDir()) {
+				continue;
+			}
+
+			$this->files[] = $file->getPathname();
+		}
 	}
 }
