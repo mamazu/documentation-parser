@@ -45,6 +45,19 @@ final class PhpCodeEnsurerSpec extends ObjectBehavior
 class AnonymousClassThatWeNeedForItToBeValidPhp { public function sayHello() {} }');
 	}
 
+	public function it_prefixes_memeber_functions_with_classes_with_comment()
+	{
+		$this->getPHPCode('/** */ public function sayHello() {}')
+			->shouldReturn('<?php namespace Mamazu\DocumentationParser;
+class AnonymousClassThatWeNeedForItToBeValidPhp { /** */ public function sayHello() {} }');
+	}
+
+	public function it_does_not_prefix_classes()
+	{
+		$this->getPHPCode('class Hello {public function sayHello() {}}')
+			->shouldReturn('<?php class Hello {public function sayHello() {}}');
+	}
+
 	public function it_throws_an_error_if_the_directory_can_not_be_created(Filesystem $filesystem): void
 	{
 		$filesystem

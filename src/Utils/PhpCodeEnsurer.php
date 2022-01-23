@@ -24,10 +24,12 @@ final class PhpCodeEnsurer implements PhpCodeEnsurerInterface
 	{
 		$sourceCode = trim($sourceCode);
 
+		// Finding partial classes: meaning the documentation only contains class bodies
+		// in this case we just define a class around it for it to be valid php
+		$matches = [];
 		if (
-			stripos($sourceCode, 'public') === 0 ||
-			stripos($sourceCode, 'private') === 0 ||
-			stripos($sourceCode, 'protected') === 0
+			preg_match('/(class .*\s*{)?.*(public|private|protected) function .*/u', $sourceCode, $matches) > 0 &&
+			$matches[1] === ''
 		) {
 			$sourceCode = <<<PHP
 namespace Mamazu\DocumentationParser;

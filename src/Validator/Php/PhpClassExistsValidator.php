@@ -76,7 +76,6 @@ final class PhpClassExistsValidator implements ValidatorInterface
 
 		$message = $matches[1];
 		$lineNumber = (int) $matches[2];
-
 		return [Error::errorFromBlock($block, $lineNumber, $message)];
 	}
 
