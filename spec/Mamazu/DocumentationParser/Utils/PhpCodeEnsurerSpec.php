@@ -52,10 +52,29 @@ class AnonymousClassThatWeNeedForItToBeValidPhp { public function sayHello() {} 
 class AnonymousClassThatWeNeedForItToBeValidPhp { /** */ public function sayHello() {} }');
 	}
 
+	public function it_prefixes_memeber_functions_with_classes_with_comment_and_php_tag()
+	{
+		$this->getPHPCode('<?php /** */ public function sayHello() {}')
+			->shouldReturn('<?php namespace Mamazu\DocumentationParser;
+class AnonymousClassThatWeNeedForItToBeValidPhp {  /** */ public function sayHello() {} }');
+	}
+
 	public function it_does_not_prefix_classes()
 	{
-		$this->getPHPCode('class Hello {public function sayHello() {}}')
-			->shouldReturn('<?php class Hello {public function sayHello() {}}');
+		$this->getPHPCode('class Hello { public function sayHello() {}}')
+			->shouldReturn('<?php class Hello { public function sayHello() {}}');
+	}
+
+	public function it_allows_empty_classes()
+	{
+		$this->getPHPCode('<?php class Hello {}')
+			->shouldReturn('<?php class Hello {}');
+	}
+
+	public function it_does_not_prefix_classes_with_php_tags()
+	{
+		$this->getPHPCode('<?php class Hello { public function sayHello() {}}')
+			->shouldReturn('<?php class Hello { public function sayHello() {}}');
 	}
 
 	public function it_throws_an_error_if_the_directory_can_not_be_created(Filesystem $filesystem): void
