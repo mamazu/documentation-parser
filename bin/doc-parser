@@ -3,7 +3,7 @@
 
 // Example: php doc-parser.php <files to parse>
 if ($argc < 2) {
-	 echo 'Example usage: php doc-parser.php <files to parse>';
+	echo 'Example usage: php doc-parser.php <files to parse>';
 	die(1);
 }
 
@@ -28,11 +28,8 @@ use Mamazu\DocumentationParser\Validator\Php\PhpClassExistsValidator;
 use Mamazu\DocumentationParser\Validator\XML\XMLValidValidator;
 use Mamazu\DocumentationParser\Validator\Yaml\YamlValidator;
 
-$arguments = $argv;
-array_shift($arguments);
-
 $fileList = new FileList();
-$cli = new CLI($fileList, $arguments);
+$cli = new CLI($fileList, array_slice($argv, 1));
 $formatter = new TextFormatter();
 
 $application = new Application(
@@ -64,16 +61,4 @@ $application = new Application(
 foreach ($cli->getIncludePaths() as $includePath) {
 	include $includePath;
 }
-
-try {
-	$output = $application->parse($cli->getFilesToParse());
-	echo $formatter->format($output);
-} catch (Throwable $throwable) {
-	fwrite(STDERR, $throwable->getMessage());
-	echo $throwable->getTraceAsString();
-	exit($throwable->getCode());
-}
-
-if (count($output) > 0) {
-	exit(1);
-}
+$application->run($formatter, $cli->getFilesToParse());

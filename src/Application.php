@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mamazu\DocumentationParser;
 
 use Mamazu\DocumentationParser\Error\Error;
+use Mamazu\DocumentationParser\Output\FormatterInterface;
 use Mamazu\DocumentationParser\Parser\Block;
 use Mamazu\DocumentationParser\Parser\Parser\ParserInterface;
 use Mamazu\DocumentationParser\Validator\ValidatorInterface;
@@ -62,6 +63,22 @@ class Application
 		}
 
 		return $validationErrors;
+	}
+
+	public function run(FormatterInterface $formatter, FileList $fileList): void
+	{
+		try {
+			$output = $this->parse($fileList);
+			echo $formatter->format($output);
+		} catch (\Throwable $throwable) {
+			fwrite(STDERR, $throwable->getMessage());
+			echo $throwable->getTraceAsString();
+			exit($throwable->getCode());
+		}
+
+		if (count($output) > 0) {
+			exit(1);
+		}
 	}
 
 	/**
