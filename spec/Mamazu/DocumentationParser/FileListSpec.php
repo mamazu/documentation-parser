@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace spec\Mamazu\DocumentationParser;
 
-use InvalidArgumentException;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
 use PhpSpec\ObjectBehavior;
@@ -47,11 +46,14 @@ class FileListSpec extends ObjectBehavior
 		$this->getAllFiles()->shouldIterateAs(['abc.md']);
 	}
 
-	public function it_throws_an_exception_when_adding_a_directory(): void
+	public function it_adds_a_directory(): void
 	{
-		$this->workDir->addChild(vfsStream::newDirectory('abc'));
+		$directory = vfsStream::newDirectory('abc');
+		$directory->addChild(vfsStream::newFile('testing.php'));
+		$this->workDir->addChild($directory);
 
-		$this->shouldThrow(InvalidArgumentException::class)
-			->during('addFile', ['vfs://workDir/abc']);
+		$this->addFile('vfs://workDir/abc');
+
+		$this->getAllFiles()->shouldIterateAs(['vfs://workDir/abc/testing.php']);
 	}
 }
