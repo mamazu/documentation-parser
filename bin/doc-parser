@@ -3,15 +3,15 @@
 
 // Example: php doc-parser.php <files to parse>
 if ($argc < 2) {
-    echo 'Example usage: php doc-parser.php <files to parse>';
-    die(1);
+	 echo 'Example usage: php doc-parser.php <files to parse>';
+	die(1);
 }
 
 $autoloadPath = __DIR__.'/../vendor/autoload.php';
-if(file_exists($autoloadPath)) {
-    include $autoloadPath;
+if (file_exists($autoloadPath)) {
+	include $autoloadPath;
 } else {
-    include __DIR__.'/../../../autoload.php';
+	include __DIR__.'/../../../autoload.php';
 }
 
 use Gregwar\RST\Parser;
@@ -32,48 +32,48 @@ $arguments = $argv;
 array_shift($arguments);
 
 $fileList = new FileList();
-$cli      = new CLI($fileList, $arguments);
+$cli = new CLI($fileList, $arguments);
 $formatter = new TextFormatter();
 
 $application = new Application(
-    [
-        new MarkdownParser(),
-        new RstParser(new Parser()),
-        new TexParser(),
-    ],
-    [
-        'php' =>
-            new CompositeValidator(
-                [
-                    new PHPClassExistsValidator(
-                        static function (string $classOrInterface): bool {
-                            include_once getcwd().'/vendor/autoload.php';
-                            return class_exists($classOrInterface) || interface_exists($classOrInterface);
-                        }
-                    ),
-                ]
-            ),
-        'xml' => new XMLValidValidator(),
-        'yml' => new YamlValidator(),
-        'yaml' => new YamlValidator(),
-        'bash' => new BashValidator('bash'),
-        'sh' => new BashValidator('sh'),
-    ]
+	[
+		new MarkdownParser(),
+		new RstParser(new Parser()),
+		new TexParser(),
+	],
+	[
+		'php' =>
+			new CompositeValidator(
+				[
+					new PHPClassExistsValidator(
+						static function (string $classOrInterface): bool {
+							include_once getcwd().'/vendor/autoload.php';
+							return class_exists($classOrInterface) || interface_exists($classOrInterface);
+						}
+					),
+				]
+			),
+		'xml' => new XMLValidValidator(),
+		'yml' => new YamlValidator(),
+		'yaml' => new YamlValidator(),
+		'bash' => new BashValidator('bash'),
+		'sh' => new BashValidator('sh'),
+	]
 );
 
 foreach ($cli->getIncludePaths() as $includePath) {
-    include $includePath;
+	include $includePath;
 }
 
 try {
-    $output = $application->parse($cli->getFilesToParse());
-    echo $formatter->format($output);
+	$output = $application->parse($cli->getFilesToParse());
+	echo $formatter->format($output);
 } catch (Throwable $throwable) {
-    fwrite(STDERR, $throwable->getMessage());
-    echo $throwable->getTraceAsString();
-    exit($throwable->getCode());
+	fwrite(STDERR, $throwable->getMessage());
+	echo $throwable->getTraceAsString();
+	exit($throwable->getCode());
 }
 
-if(count($output) > 0) {
-    exit(1);
+if (count($output) > 0) {
+	exit(1);
 }
