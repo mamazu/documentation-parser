@@ -38,6 +38,13 @@ final class PhpCodeEnsurerSpec extends ObjectBehavior
 		$this->putPhpCodeToFile('<?php', '/tmp/hello.php');
 	}
 
+	public function it_prefixes_memeber_functions_with_classes()
+	{
+		$this->getPHPCode('public function sayHello() {}')
+			->shouldReturn('<?php namespace Mamazu\DocumentationParser;
+class AnonymousClassThatWeNeedForItToBeValidPhp { public function sayHello() {} }');
+	}
+
 	public function it_throws_an_error_if_the_directory_can_not_be_created(Filesystem $filesystem): void
 	{
 		$filesystem

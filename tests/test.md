@@ -6,12 +6,20 @@ Hello I am a normal markdown with **bold**, ~~underline~~ and _italic_ text and 
 <b/>
 </a>
 ```
-
+This is php.
 ```php
 // Test
 echo 'Hallo';
 
 echo 2+2;
+```
+
+And the parser even supports the usage of partial class definitions:
+```php
+public function thisIsATest() {
+	echo "Testing 123";
+	return 10;
+}
 ```
 
 Sometimes the YAML structure is a substructure of another thing.
