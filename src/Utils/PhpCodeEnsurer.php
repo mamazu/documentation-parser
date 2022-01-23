@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mamazu\DocumentationParser\Utils;
 
+use function strtok;
 use Symfony\Component\Filesystem\Filesystem;
 
 final class PhpCodeEnsurer implements PhpCodeEnsurerInterface
@@ -27,21 +28,59 @@ final class PhpCodeEnsurer implements PhpCodeEnsurerInterface
 		// Finding partial classes: meaning the documentation only contains class bodies
 		// in this case we just define a class around it for it to be valid php
 		$matches = [];
-		if (
-			preg_match('/(class .*\s*{)?.*(public|private|protected) function .*/u', $sourceCode, $matches) > 0 &&
-			$matches[1] === ''
-		) {
+		if ($this->needsToBeWrappedInClass($sourceCode)) {
+			if ($this->hasPhpTag($sourceCode)) {
+				$sourceCode = substr($sourceCode, 5);
+			}
+
 			$sourceCode = <<<PHP
 namespace Mamazu\DocumentationParser;
 class AnonymousClassThatWeNeedForItToBeValidPhp { ${sourceCode} }
 PHP;
 		}
 
-		// Adding the php stag in front
-		if (strpos($sourceCode, '<?php') !== 0) {
+		if (! $this->hasPhpTag($sourceCode)) {
 			return '<?php ' . $sourceCode;
 		}
 
 		return $sourceCode;
+	}
+
+	private function hasPhpTag(string $sourceCode): bool
+	{
+		return strpos($sourceCode, '<?php') === 0;
+	}
+
+	private function needsToBeWrappedInClass(string $sourceCode): bool
+	{
+		$token = strtok($sourceCode, " \n\t");
+
+		$needsClassDefintion = false;
+		while ($token !== false) {
+			if ($this->in_array_case_insensitive(['class', 'trait', 'interface'], $token)) {
+				return false;
+			}
+
+			if ($this->in_array_case_insensitive(['public', 'private', 'protected'], $token)) {
+				$needsClassDefintion = true;
+			}
+
+			$token = strtok(" \n\t");
+		}
+
+		return $needsClassDefintion;
+	}
+
+	/**
+	 * @param array<string> $keywords
+	 */
+	private function in_array_case_insensitive(array $keywords, string $keywordToFind): bool
+	{
+		foreach ($keywords as $keyword) {
+			if (strcasecmp($keyword, $keywordToFind) === 0) {
+				return true;
+			}
+		}
+		return false;
 	}
 }
