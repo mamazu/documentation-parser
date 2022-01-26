@@ -35,7 +35,9 @@ final class PhpCodeEnsurer implements PhpCodeEnsurerInterface
 
 			$sourceCode = <<<PHP
 namespace Mamazu\DocumentationParser;
-class AnonymousClassThatWeNeedForItToBeValidPhp { ${sourceCode} }
+class AnonymousClassThatWeNeedForItToBeValidPhp {
+	${sourceCode}
+}
 PHP;
 		}
 
