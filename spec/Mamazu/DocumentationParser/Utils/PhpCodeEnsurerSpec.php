@@ -42,21 +42,27 @@ final class PhpCodeEnsurerSpec extends ObjectBehavior
 	{
 		$this->getPHPCode('public function sayHello() {}')
 			->shouldReturn('<?php namespace Mamazu\DocumentationParser;
-class AnonymousClassThatWeNeedForItToBeValidPhp { public function sayHello() {} }');
+class AnonymousClassThatWeNeedForItToBeValidPhp {
+	public function sayHello() {}
+}');
 	}
 
 	public function it_prefixes_memeber_functions_with_classes_with_comment()
 	{
-		$this->getPHPCode('/** */ public function sayHello() {}')
+		$this->getPHPCode('/** */ public function testingComment() {}')
 			->shouldReturn('<?php namespace Mamazu\DocumentationParser;
-class AnonymousClassThatWeNeedForItToBeValidPhp { /** */ public function sayHello() {} }');
+class AnonymousClassThatWeNeedForItToBeValidPhp {
+	/** */ public function testingComment() {}
+}');
 	}
 
 	public function it_prefixes_memeber_functions_with_classes_with_comment_and_php_tag()
 	{
-		$this->getPHPCode('<?php /** */ public function sayHello() {}')
+		$this->getPHPCode('<?php /** */ public function sayTestingHello() {}')
 			->shouldReturn('<?php namespace Mamazu\DocumentationParser;
-class AnonymousClassThatWeNeedForItToBeValidPhp {  /** */ public function sayHello() {} }');
+class AnonymousClassThatWeNeedForItToBeValidPhp {
+	 /** */ public function sayTestingHello() {}
+}');
 	}
 
 	public function it_does_not_prefix_classes()
