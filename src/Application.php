@@ -105,6 +105,7 @@ class Application
 		$type = $block->getType();
 
 		if (! array_key_exists($type, $this->validator)) {
+			trigger_error('No validator for type: ' . $type . ' @ ' . $block->getFileName() . ':' . $block->getRelativeLineNumber(), E_USER_WARNING);
 			return [];
 		}
 
