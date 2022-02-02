@@ -19,6 +19,7 @@ use Mamazu\DocumentationParser\Application;
 use Mamazu\DocumentationParser\CLI;
 use Mamazu\DocumentationParser\FileList;
 use Mamazu\DocumentationParser\Output\TextFormatter;
+use Mamazu\DocumentationParser\Parser\Parser\IgnoredFileParser;
 use Mamazu\DocumentationParser\Parser\Parser\MarkdownParser;
 use Mamazu\DocumentationParser\Parser\Parser\RstParser;
 use Mamazu\DocumentationParser\Parser\Parser\TexParser;
@@ -38,6 +39,7 @@ $application = new Application(
 		new MarkdownParser(),
 		new RstParser(new Parser()),
 		new TexParser(),
+		new IgnoredFileParser(),
 	],
 	[
 		'php' =>
