@@ -7,11 +7,11 @@ if ($argc < 2) {
 	die(1);
 }
 
-$autoloadPath = __DIR__.'/../vendor/autoload.php';
+$autoloadPath = __DIR__ . '/../vendor/autoload.php';
 if (file_exists($autoloadPath)) {
 	include $autoloadPath;
 } else {
-	include __DIR__.'/../../../autoload.php';
+	include __DIR__ . '/../../../autoload.php';
 }
 
 use Gregwar\RST\Parser;
@@ -47,7 +47,7 @@ $application = new Application(
 				[
 					new PHPClassExistsValidator(
 						static function (string $classOrInterface): bool {
-							include_once getcwd().'/vendor/autoload.php';
+							include_once getcwd() . '/vendor/autoload.php';
 							return class_exists($classOrInterface) || interface_exists($classOrInterface);
 						}
 					),

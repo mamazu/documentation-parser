@@ -13,6 +13,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 		__DIR__ . '/src',
 		__DIR__ . '/spec',
 		__DIR__ . '/ecs.php',
+		__DIR__ . '/bin/doc-parser',
 	]);
 	$parameters->set(Option::PARALLEL, true);
 	$parameters->set(Option::INDENTATION, 'tab');
