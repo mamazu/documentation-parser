@@ -26,6 +26,7 @@ use Mamazu\DocumentationParser\Parser\Parser\TexParser;
 use Mamazu\DocumentationParser\Validator\Bash\BashValidator;
 use Mamazu\DocumentationParser\Validator\CompositeValidator;
 use Mamazu\DocumentationParser\Validator\JSON\JsonValidator;
+use Mamazu\DocumentationParser\Validator\Php\EnvValidator;
 use Mamazu\DocumentationParser\Validator\Php\PhpClassExistsValidator;
 use Mamazu\DocumentationParser\Validator\XML\XMLValidValidator;
 use Mamazu\DocumentationParser\Validator\Yaml\YamlValidator;
@@ -59,6 +60,7 @@ $application = new Application(
 		'bash' => new BashValidator('bash'),
 		'sh' => new BashValidator('sh'),
 		'json' => new JsonValidator(),
+		'env' => new EnvValidator(),
 	]
 );
 

@@ -17,7 +17,8 @@
         "nikic/php-parser": "^4.2",
         "symfony/yaml": "^4|^5",
         "mamazu/rst": "^2.0",
-        "symfony/filesystem": "^4|^5.3"
+        "symfony/filesystem": "^4|^5.3",
+        "symfony/dotenv": "^4|^5"
     },
     "require-dev": {
         "phpspec/phpspec": "^5.1|^6.0",
