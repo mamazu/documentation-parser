@@ -40,7 +40,7 @@
     },
     "scripts": {
         "analyse": [
-            "vendor/bin/phpspec run",
+            "vendor/bin/phpunit tests",
             "vendor/bin/phpstan analyse"
         ],
         "fix": [
