@@ -35,7 +35,7 @@ class Application
 	/**
 	 * @return array<ParserInterface>
 	 */
-	public function getParser(): array
+	public function &getParser(): array
 	{
 		return $this->parser;
 	}
