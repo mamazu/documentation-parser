@@ -10,38 +10,39 @@ Every project needs documentation which is usually accompanied by code snippets 
 
 `vendor/bin/doc-parser <files to check>`
 
-## How to configure it
-Configuration of the software is done in code. There is an extension point in the binary which can be used to inject any piece of code. You can run the application with the `-i` option and provide **one** path which will be run before the validation is executed.
->Example: `bin/doc-parser -i my_extension_script.php docs` (order of arguments does not matter.)
+## How to use it
+```text
+bin/phpdoc-parser <path> [-i extensionscript.php]
 
-An example for adding more validators is given in the `tests/extensions/add_phpstan.php` file which also adds the validation rules of [PHPstan](https://github.com/phpstan/phpstan).
+path			Path containing the documentation
+-i script.php	Configuration script of the application
 
-You can also configure it to use a directory: `bin/doc-parser -i <extension-dir> docs` and all php files in this directory will be included and executed.
+Example:
+bin/doc-parser docs					# Validate with default configuration
+bin/doc-parser docs -i config.php	# Validate with custom configuration
+```
 
-### Parsers
-* Markdown parser: Parses markdown and **only** extracts the block comments like this:
-> \```php
->
->echo "ABC";
->
->\```
-* RST parser: Parser that parses RST code blocks like this:
-> .. code-block:: php
->
->   echo "ABC";
-* Latex parser:
-> \begin{lstlisting}[language=Python]
->
->    print("Hello World")
->
-> \end{lstlisting}
+The configuration of the extension is loaded before the application starts. For a template checkout the `tests/extensions/delete.php` file. An example for adding more validators is given in the `tests/extensions/add_phpstan.php` file which also adds the validation rules of [PHPstan](https://github.com/phpstan/phpstan).
 
-### Validators
+## Supported parsing formats
+[Here](https://github.com/mamazu/documentation-parser/tree/master/src/Parser/Parser) is the full list of parsers that this library supports:
+
+* IgnoredFileParser (this allows ignoring certain extensions like pdf files)
+* Markdown (only supporting block comments for now)
+* RstParser
+* LatexParser (only supporting the `lstlisting` package)
+
+## Validators
 * CompositeValidator: Validates all of its children passed into the constructor
+* Bash:
+    * BashValidator: Validates bash or sh files with the build in spellchecker
 * PHP:
     * ClassExistenceValidator: Validates if the classes referenced in the use statement exist
     * PhpStanValidator (optional): Validates the code with PHPstan
+    * EnvValidator: Validate the contents of the `.env` files
 * XML:
     * XMLValidator: Checks if the document contains valid XML
 * YAML / YML:
     * YamlValidator: Checks if the document contains valid Yaml
+* JSON:
+    * JsonValidator: Default PHP JSON parsing without line numbers of errors
