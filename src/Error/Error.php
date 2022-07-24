@@ -33,6 +33,11 @@ class Error implements JsonSerializable
 		return "[{$this->type}] {$this->message}";
 	}
 
+	public function getRawMessage(): string
+	{
+		return $this->message;
+	}
+
 	public function getFileName(): string
 	{
 		return $this->fileName;
