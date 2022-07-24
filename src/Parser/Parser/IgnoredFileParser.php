@@ -14,7 +14,7 @@ class IgnoredFileParser implements ParserInterface
 	/**
 	 * @param array<string> $ignoredExtensions
 	 */
-	public function __construct(array $ignoredExtensions = ['png', 'jpg', 'jpeg'])
+	public function __construct(array $ignoredExtensions = ['png', 'jpg', 'jpeg', 'pdf', 'gif'])
 	{
 		$this->ignoredExtensions = $ignoredExtensions;
 	}
