@@ -2,34 +2,33 @@
 
 declare(strict_types=1);
 
-use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use PHP_CodeSniffer\Standards\Generic\Sniffs\Arrays\DisallowLongArraySyntaxSniff;
+use Symplify\EasyCodingStandard\Config\ECSConfig;
 use Symplify\EasyCodingStandard\ValueObject\Option;
 use Symplify\EasyCodingStandard\ValueObject\Set\SetList;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
-	$parameters = $containerConfigurator->parameters();
-	$parameters->set(Option::PATHS, [
-		__DIR__ . '/src',
-		__DIR__ . '/tests',
-		__DIR__ . '/ecs.php',
-		__DIR__ . '/bin/doc-parser',
-	]);
-	$parameters->set(Option::PARALLEL, true);
-	$parameters->set(Option::INDENTATION, 'tab');
+return static function (ECSConfig $configuration): void {
+	$configuration
+		->paths([
+			__DIR__ . '/src',
+			__DIR__ . '/tests',
+			__DIR__ . '/ecs.php',
+			__DIR__ . '/bin/doc-parser',
+		]);
+	$configuration->parallel(true);
+	$configuration->indentation(Option::INDENTATION_TAB);
 
-	$services = $containerConfigurator->services();
-	$services->set(ArraySyntaxFixer::class)
-		->call('configure', [[
-			'syntax' => 'short',
-		]]);
+	$configuration->rule(DisallowLongArraySyntaxSniff::class);
 
 	// run and fix, one by one
-	$containerConfigurator->import(SetList::SPACES);
-	$containerConfigurator->import(SetList::ARRAY);
-	$containerConfigurator->import(SetList::DOCBLOCK);
-	$containerConfigurator->import(SetList::PSR_12);
-	$containerConfigurator->import(SetList::STRICT);
-	$containerConfigurator->import(SetList::CLEAN_CODE);
-	$containerConfigurator->import(SetList::CONTROL_STRUCTURES);
+	$configuration->sets([
+		SetList::SPACES,
+		SetList::ARRAY,
+		SetList::DOCBLOCK,
+		SetList::PSR_12,
+		SetList::STRICT,
+		SetList::CLEAN_CODE,
+		SetList::CONTROL_STRUCTURES,
+	])
+	;
 };
