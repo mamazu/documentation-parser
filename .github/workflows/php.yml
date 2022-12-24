@@ -37,7 +37,7 @@ jobs:
             -   name: Install dependencies
                 run: composer install --prefer-dist --no-progress
 
-            -   name: Install dependencies
+            -   name: Checking codestyle
                 run: vendor/bin/ecs
 
             -   name: Run code checks
