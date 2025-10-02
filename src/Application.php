@@ -76,7 +76,7 @@ class Application
 			exit($throwable->getCode());
 		}
 
-		if (count($output) > 0) {
+		if ($output !== []) {
 			exit(1);
 		}
 	}

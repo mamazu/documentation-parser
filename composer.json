@@ -18,7 +18,8 @@
         "symfony/yaml": "^4|^5",
         "mamazu/rst": "^2.0",
         "symfony/filesystem": "^4|^5.3",
-        "symfony/dotenv": "^4|^5"
+        "symfony/dotenv": "^4|^5",
+        "webmozart/assert": "^1.11"
     },
     "require-dev": {
         "mikey179/vfsstream": "^1.6",
@@ -26,7 +27,8 @@
         "phpstan/phpstan-strict-rules": "^0.12.9",
         "phpstan/phpstan-webmozart-assert": "^0.12.12",
         "symplify/easy-coding-standard": "^10.2.4",
-        "phpunit/phpunit": "^9.5"
+        "phpunit/phpunit": "^10.0",
+        "rector/rector": "^0.11.60"
     },
     "autoload": {
         "psr-4": {

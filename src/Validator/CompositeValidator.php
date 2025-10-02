@@ -35,7 +35,7 @@ final class CompositeValidator implements ValidatorInterface
 		$error = [];
 		foreach ($this->validators as $validator) {
 			$newErrors = $validator->validate($block);
-			if ($this->continueValidationOnFailure || count($newErrors) === 0) {
+			if ($this->continueValidationOnFailure || $newErrors === []) {
 				$error = array_merge($error, $newErrors);
 			} else {
 				return $newErrors;

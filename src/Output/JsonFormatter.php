@@ -10,7 +10,7 @@ final class JsonFormatter implements FormatterInterface
 {
 	public function format(array $output): string
 	{
-		if (count($output) === 0) {
+		if ($output === []) {
 			return '';
 		}
 

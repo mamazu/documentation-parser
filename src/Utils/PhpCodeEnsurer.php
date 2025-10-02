@@ -24,10 +24,6 @@ final class PhpCodeEnsurer implements PhpCodeEnsurerInterface
 	public function getPHPCode(string $sourceCode): string
 	{
 		$sourceCode = trim($sourceCode);
-
-		// Finding partial classes: meaning the documentation only contains class bodies
-		// in this case we just define a class around it for it to be valid php
-		$matches = [];
 		if ($this->needsToBeWrappedInClass($sourceCode)) {
 			if ($this->hasPhpTag($sourceCode)) {
 				$sourceCode = substr($sourceCode, 5);

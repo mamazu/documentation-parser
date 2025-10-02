@@ -23,14 +23,18 @@ class CLITest extends TestCase
 
 	public function testParsesAFilesOnlyParameters(): void
 	{
+		$matcher = $this->exactly(2);
 		/** @var FileList|MockObject $fileList */
 		$fileList = $this->createMock(FileList::class);
-		$fileList->expects($this->exactly(2))
+		$fileList->expects($matcher)
 			->method('addFile')
-			->withConsecutive(
-				['abc.php'],
-				['cde.md']
-			);
+			->willReturnCallback(function (...$args) use ($matcher) {
+				$expected = [
+					['abc.php'],
+					['cde.md'],
+				];
+				$this->assertEquals($expected[$matcher->numberOfInvocations() - 1], $args);
+			});
 
 		$this->cLI = new CLI($fileList, ['abc.php', 'cde.md']);
 		$this->assertSame($fileList, $this->cLI->getFilesToParse());
@@ -39,14 +43,18 @@ class CLITest extends TestCase
 
 	public function testParsesAFileAnIncludeFileMix(): void
 	{
+		$matcher = $this->exactly(2);
 		/** @var FileList|MockObject $fileList */
 		$fileList = $this->createMock(FileList::class);
-		$fileList->expects($this->exactly(2))
+		$fileList->expects($matcher)
 			->method('addFile')
-			->withConsecutive(
-				['abc.php'],
-				['cde.md']
-			);
+			->willReturnCallback(function (...$args) use ($matcher) {
+				$expected = [
+					['abc.php'],
+					['cde.md'],
+				];
+				$this->assertEquals($expected[$matcher->numberOfInvocations() - 1], $args);
+			});
 
 		$this->workDir->addChild(vfsStream::newFile('bananas.php'));
 		$this->cLI = new CLI($fileList, ['abc.php', '-i', 'vfs://workDir/bananas.php', 'cde.md']);
@@ -56,14 +64,18 @@ class CLITest extends TestCase
 
 	public function testHasNoIncludeFileIfNoValueWasGiven(): void
 	{
+		$matcher = $this->exactly(2);
 		/** @var FileList|MockObject $fileList */
 		$fileList = $this->createMock(FileList::class);
-		$fileList->expects($this->exactly(2))
+		$fileList->expects($matcher)
 			->method('addFile')
-			->withConsecutive(
-				['abc.php'],
-				['cde.md']
-			);
+			->willReturnCallback(function (...$args) use ($matcher) {
+				$expected = [
+					['abc.php'],
+					['cde.md'],
+				];
+				$this->assertEquals($expected[$matcher->numberOfInvocations() - 1], $args);
+			});
 
 		$this->cLI = new CLI($fileList, ['abc.php', 'cde.md', '-i']);
 		$this->assertSame($fileList, $this->cLI->getFilesToParse());

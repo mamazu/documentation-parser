@@ -26,11 +26,6 @@ final class PhpClassExistsValidator implements ValidatorInterface
 
 	private PhpCodeEnsurerInterface $codeEnsurer;
 
-	/**
-	 * @var false|string
-	 */
-	private $phpVersion;
-
 	public function __construct(
 		callable $classExists,
 		?Parser $parser = null,

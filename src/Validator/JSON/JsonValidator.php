@@ -14,7 +14,7 @@ class JsonValidator implements ValidatorInterface
 	public function validate(Block $block): array
 	{
 		try {
-			$content = json_decode($block->getContent(), true, 1024, JSON_THROW_ON_ERROR);
+			json_decode($block->getContent(), true, 1024, JSON_THROW_ON_ERROR);
 		} catch (JsonException $e) {
 			return [
 				Error::errorFromBlock($block, 1, $e->getMessage()),

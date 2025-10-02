@@ -35,7 +35,7 @@ class FileListTest extends TestCase
 		$this->fileList->addFile('vfs://workDir/test.php');
 		$this->fileList->addFile('vfs://workDir/bananas.php');
 
-		$this->fileList->getAllValidFiles();
+		$this->assertSame(['vfs://workDir/test.php'], iterator_to_array($this->fileList->getAllValidFiles()));
 	}
 
 	public function testAddsAFile(): void
