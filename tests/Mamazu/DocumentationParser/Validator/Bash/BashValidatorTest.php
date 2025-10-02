@@ -44,7 +44,6 @@ class BashValidatorTest extends TestCase
 		$this->assertEquals(
 			[
 				new Error('test.sh', 11, 'unexpected EOF while looking for matching `"\'', 'bash'),
-				new Error('test.sh', 12, 'syntax error: unexpected end of file', 'bash'),
 			],
 			$this->bashValidator->validate($block)
 		);

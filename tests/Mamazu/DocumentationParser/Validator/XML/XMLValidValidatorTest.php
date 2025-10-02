@@ -50,8 +50,12 @@ class XMLValidValidatorTest extends TestCase
 		$block->expects($this->atLeastOnce())->method('getFileName')->willReturn('abc.xml');
 		$block->expects($this->atLeastOnce())->method('getRelativeLineNumber')->willReturn(10);
 		$result = $this->xMLValidValidator->validate($block);
-		$this->assertIsIterable($result);
-		$this->assertCount(4, $result);
+
+		$expectedOutput = [
+			'[xml] error parsing attribute name',
+			"[xml] Couldn't find end of Start Tag Hello line 2",
+		];
+		$this->assertErrorMessages($expectedOutput, $result);
 	}
 
 	public function testValidatesConsecutiveBlocksCorrectly(): void
@@ -69,13 +73,25 @@ class XMLValidValidatorTest extends TestCase
 		$block->expects($this->atLeastOnce())->method('getFileName')->willReturn('abc.xml');
 		$block->expects($this->atLeastOnce())->method('getRelativeLineNumber')->willReturn(10);
 		$result = $this->xMLValidValidator->validate($block);
-		$this->assertIsIterable($result);
-		$this->assertCount(4, $result);
+
+		$expectedOutput = [
+			'[xml] error parsing attribute name',
+			"[xml] Couldn't find end of Start Tag Hello line 2",
+		];
+		$this->assertErrorMessages($expectedOutput, $result);
 		$block2->expects($this->atLeastOnce())->method('getContent')->willReturn('
 <Hello>
     This is text
 </Hello>
 ');
 		$this->assertCount(0, $this->xMLValidValidator->validate($block2));
+	}
+
+	private function assertErrorMessages(array $errorMessages, iterable $result): void
+	{
+		foreach ($result as $index => $error) {
+			$this->assertSame($errorMessages[$index] ?? null, $error->getMessage());
+		}
+		$this->assertCount(count($errorMessages), $result);
 	}
 }

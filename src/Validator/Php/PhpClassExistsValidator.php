@@ -14,7 +14,6 @@ use PhpParser\Node\Stmt\Use_;
 use PhpParser\Node\Stmt\UseUse;
 use PhpParser\Parser;
 use PhpParser\ParserFactory;
-use Webmozart\Assert\Assert;
 
 final class PhpClassExistsValidator implements ValidatorInterface
 {
@@ -47,7 +46,9 @@ final class PhpClassExistsValidator implements ValidatorInterface
 		$phpCode = $this->codeEnsurer->getPHPCode($block->getContent());
 		try {
 			$statements = $this->parser->parse($phpCode);
-			Assert::notNull($statements, 'The parsing of the php file failed.');
+			if ($statements === null) {
+				throw new \InvalidArgumentException('The parsing of the php file failed.');
+			}
 		} catch (\Throwable $exception) {
 			return $this->processSyntaxErrors($block, $exception->getMessage());
 		}

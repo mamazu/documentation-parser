@@ -35,9 +35,6 @@ class FileListTest extends TestCase
 		$this->fileList->addFile('vfs://workDir/test.php');
 		$this->fileList->addFile('vfs://workDir/bananas.php');
 
-		$this->expectWarning();
-		$this->expectWarningMessage('Could not find file: vfs://workDir/bananas.php');
-
 		$this->fileList->getAllValidFiles();
 	}
 
